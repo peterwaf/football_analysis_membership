@@ -14,7 +14,7 @@ class CustomUserAdmin(BaseUserAdmin):
     list_filter = ('date_joined',)
     #if you want extended fields to be edited in the admin, add field sets
     fieldsets = (
-    (None, {'fields': ('username', 'password','pin')}),
+    (None, {'fields': ('username', 'password',)}),
     ('Personal info', {'fields': ('first_name','last_name','email','mobile_number')}),
     ('Permissions', {'fields': ('is_active','is_staff','is_superuser','groups','user_permissions')}),
 )

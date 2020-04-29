@@ -8,11 +8,11 @@ from django.utils.translation import ugettext_lazy as _
 from .managers import CustomUserManager
 
 class CustomUser(AbstractBaseUser,PermissionsMixin):
-    email = models.EmailField(_('Email Address'),unique= True)
-    username = models.CharField(_('Username'),unique= True, max_length=50)
+    email = models.EmailField(_('Email Address'),unique=True)
+    username = models.CharField(_('Username'),unique=True, max_length=50)
     first_name = models.CharField(_('First Name'),blank=True,max_length=50)
     last_name = models.CharField(_('Last Name'),blank=True,max_length=50)
-    mobile_number = models.CharField(_('Mobile Number'),blank=True,max_length=50)
+    mobile_number = models.CharField(_('Mobile Number'),blank=True,unique=True,max_length=50)
     is_staff = models.BooleanField(_('IS STAFF '),default=False)
     is_active = models.BooleanField(default=True)
     subscribed = models.BooleanField(default=False)
@@ -22,7 +22,7 @@ class CustomUser(AbstractBaseUser,PermissionsMixin):
     
     #ask for email instead of the default username
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ('email',)
     objects = CustomUserManager()
     # helper functions
