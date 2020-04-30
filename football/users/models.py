@@ -22,8 +22,8 @@ class CustomUser(AbstractBaseUser,PermissionsMixin):
     
     #ask for email instead of the default username
 
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ('email',)
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ('mobile_number',)
     objects = CustomUserManager()
     # helper functions
     # eg creating user functions/retrieving user & permissions
