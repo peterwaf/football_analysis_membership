@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Football</title>
+    <link rel="stylesheet" href="{% static 'site/bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'site/custom/css/all.min.css' %}">
+</head>
+
+<body>
+
+    {% block content %}
+    {% endblock %}
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="{% static 'site/custom/js/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'site/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'site/custom/js/jquery/jquery.easing.min.js' %}"></script>
+
+</body>
