@@ -1,7 +1,7 @@
 {% extends 'base/page_container.html' %}
 
 {% block content %}
-<div class="container register">
+<div class="container-fluid register">
     <div class="row">
         <div class="col-md-3 register-left">
             <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
@@ -13,34 +13,67 @@
            
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    
-                    <div class="row register-form">
-                        <div class="col-md-6">
+                    <form action="{% url 'users:register' %}" name="frm_customer" method="POST" class="row register-form">
+                        {% csrf_token %}
+                        <div class="container">
                             <h3>Register</h3>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="First Name *" value="" />
+                            <div class="form-group row">
+                                <label for="first_name" class="col-md-4">First Name  :</label>
+                                <div class="col-md-8">{{form.first_name}}</div>
                             </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Last Name *" value="" />
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Phone Number * e.g 07xxxxxxxx" value="" />
-                            </div>
-
-                            <div class="form-group">
-                                <input type="email" class="form-control" placeholder="Email" value="" />
+                           
+                            <div class="form-group row">
+                                <label for="last_name" class="col-md-4">Last Name : </label>
+                                <div class="col-md-8">{{form.last_name}}</div> 
                             </div>
 
-                            <div class="form-group">
-                                <input type="password" class="form-control" placeholder="Password *" value="" />
+                            <div class="form-group row">
+                                <label for="mobile_number" class="col-md-4">Mobile Number : </label>
+                                <div class="col-md-8">{{form.mobile_number}}</div> 
                             </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control"  placeholder="Confirm Password *" value="" />
+
+                            <div class="form-group row">
+                                <label for="email" class="col-md-4"> Email : </label>
+                                <div class="col-md-8">{{form.email}}</div> 
                             </div>
-                            <input type="submit" name="" value="Register"/><br/>
+
+                            <div class="form-group row">
+                                <label for="password1" class="col-md-4">Password : </label>
+                                <div class="col-md-8">{{form.password1}}</div> 
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="password2" class="col-md-4">Repeat Password : </label>
+                                <div class="col-md-8">{{form.password2}}</div> 
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-4">
+                                    
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="submit" name="" value="Register"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                            <div class="col-md-12">
+                                {% for message in messages %}
+                                 {{message}}
+                                {% endfor %}
+                            </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <p>{{form.errors}}</p>
+                                </div>
+                                </div>
                         </div>
                         
-                    </div>
+                        
+                        
+                    </form>
                     
                 </div>
                 
