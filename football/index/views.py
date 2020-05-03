@@ -10,8 +10,8 @@ class PostList(generic.ListView):
 
 class PostDetail(generic.DetailView):
     model = Post
-    template_name = 'post_detail.html'
+    template_name = 'index/inner_page.html'
 
 def homePage(request):
     context = {}
-    return render(request,"index/index.html",context)
+    return render(request,"index/inner_page.html",context)
