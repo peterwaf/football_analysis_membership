@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
 from content.models import Post
+from league.models import Leaguetype
 
 # Create your views here.
 
@@ -12,6 +13,3 @@ class PostDetail(generic.DetailView):
     model = Post
     template_name = 'index/inner_page.html'
 
-def homePage(request):
-    context = {}
-    return render(request,"index/inner_page.html",context)
