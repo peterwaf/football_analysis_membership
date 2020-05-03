@@ -19,4 +19,4 @@ from . import views
 app_name = 'index'
 
 urlpatterns = [
-    path('',views.homePage,name='home'),]
+    path('',views.PostList.as_view(),name='home'),]
