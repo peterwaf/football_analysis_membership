@@ -1,7 +1,7 @@
 {% extends 'base/page_container.html'%}
 {% block content %}
         <!-- Blog Post -->
-        {% for post in posts %}
+        {% for post in free_posts %}
         <div class="card mb-4">
 		      <img src="{{ MEDIA_URL }}{{post.image}}" alt="No image">
           <div class="card-body">

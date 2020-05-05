@@ -6,27 +6,26 @@ from league.models import Leaguetype
 # Create your views here.
 
 def contentView(request):
-    posts = Post.objects.filter(status=1).order_by('-created_on')
-    categories = Leaguetype.objects.all()
-    context = {'posts':posts,'categories':categories}
+    #show only free content
+    free_posts = Post.objects.filter(status=1,content_type=0).order_by('-created_on')
+    context = {'free_posts':free_posts}
     return render(request,"index/index.html",context)
-
 
 def detailedView(request,slug):
     singe_post = Post.objects.get(slug=slug)
-    categories = Leaguetype.objects.all()
-    context = {'singe_post':singe_post,'categories':categories}
+    free_posts = Post.objects.filter(status=1,content_type=0).order_by('-created_on')
+    context = {'singe_post':singe_post,'free_posts':free_posts}
     return render(request,"index/inner_page.html",context)
 
 def categorycontentView(request,league_id):
-    category_posts = Post.objects.filter(league_id=league_id).order_by('-created_on')
+    category_posts = Post.objects.filter(status=1,content_type=0,pk=league_id).order_by('-created_on')
+    free_posts = Post.objects.filter(status=1,content_type=0).order_by('-created_on')
     #initialise a single variable for each league category
     single_league_category = ''
     for league  in category_posts:
         single_league_category = league.league
-        
-    categories = Leaguetype.objects.all()
-    context = {'category_posts':category_posts,'categories':categories,'single_league_category':single_league_category}
+    context = {'category_posts':category_posts,'single_league_category':single_league_category,'free_posts':free_posts}
     return render(request,"index/category_detail.html",context)
-    
+
+
 
