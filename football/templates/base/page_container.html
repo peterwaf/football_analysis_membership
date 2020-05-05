@@ -32,7 +32,7 @@
         <div class="col-lg-6">
           
           <ul class="list-unstyled mb-0">
-            {% for category_post in free_posts %}
+            {% for category_post in posts %}
             <li>
               <a href="{% url 'index:category_detail' category_post.id %}">{{  category_post.league }}</a>
             </li>

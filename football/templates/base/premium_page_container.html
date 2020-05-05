@@ -1,3 +1,16 @@
+{% load static %}
+{% include 'partials/header.html' %}
+
+<body>
+{% include 'partials/navigation.html' %}
+<div class="container customsetter">
+<div class="row">
+<!-- Blog Entries Column -->
+<div class="col-md-9">
+    {% block content %}
+    {% endblock %}
+</div>
+<div class="col-md-3">
 <!-- Search Widget -->
 <div class="card my-4">
     <h5 class="card-header">Search</h5>
@@ -19,15 +32,15 @@
         <div class="col-lg-6">
           
           <ul class="list-unstyled mb-0">
-            {% for category in categories %}
+            {% for category in posts %}
             <li>
-              <a href="#">{{ category.league }}</a>
+              <a href="{% url 'index:premium_category_detail' category.id %}">{{  category.league }}</a>
             </li>
             {% endfor %}
-            
           </ul>
         </div>
-       
+        
+        </div>
       </div>
     </div>
   </div>
@@ -39,5 +52,11 @@
       You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
     </div>
   </div>
-
-
+</div>
+</div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+{% include 'partials/body_scripts.html' %}
+{% include 'partials/footer.html' %}
+</body>

@@ -1,4 +1,4 @@
-{% extends 'base/page_container.html'%}
+{% extends 'base/premium_page_container.html'%}
 {% block content %}
         <!-- Blog Post -->
         {% for post in posts %}
@@ -7,7 +7,7 @@
           <div class="card-body">
             <h2 class="card-title">{{post.title}}</h2>
             <p class="card-text">{{post.content | slice:":400"}}</p>
-            <a href="{% url 'index:post_detail' post.slug  %}" class="btn btn-primary">Read More &rarr;</a>
+            <a href="{% url 'index:premium_post_detail' post.slug  %}" class="btn btn-primary">Read More &rarr;</a>
           </div>
           <div class="card-footer text-muted">
             {{post.created_on}}
