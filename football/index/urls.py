@@ -19,6 +19,9 @@ from . import views
 app_name = 'index'
 
 urlpatterns = [
-    path('',views.PostList.as_view(),name='home'),
-    path('<slug:slug>/', views.PostDetail.as_view(), name='post_detail'),]
+    path('',views.contentView,name='home'),
+    path('<slug:slug>', views.detailedView, name='post_detail'),
+    path('<int:league_id>/',views.categorycontentView, name='category_detail'),
+    ]
+
     

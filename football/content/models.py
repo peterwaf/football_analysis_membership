@@ -22,6 +22,8 @@ class Post(models.Model):
     status = models.IntegerField(choices=STATUS, default=0)
     content_type = models.IntegerField(choices=CONTENT_TYPE,default=0)
     league = models.ForeignKey(Leaguetype,null=False,on_delete=models.CASCADE)
+
+   
     
     class Meta:
         ordering = ['-created_on']
