@@ -31,28 +31,28 @@ def categorycontentView(request,league_id):
     context = {'category_posts':category_posts,'single_league_category':single_league_category,'posts':posts}
     return render(request,"index/category_detail.html",context)
 
-#default views for premium content
+#default views for premium content with own templates
 
 def premiumcontentView(request):
     #filter only paid content, content_type = 1
-    posts = Post.objects.filter(status=1,content_type=1).order_by('-created_on')
-    context = {'posts':posts}
+    premium_posts = Post.objects.filter(status=1,content_type=1).order_by('-created_on')
+    context = {'premium_posts':premium_posts}
     return render(request,"index/premium_index.html",context)
 
 def premiumdetailedView(request,slug):
-    singe_post = Post.objects.get(slug=slug)
+    singe_premium_post = Post.objects.get(slug=slug)
     #filter only paid content, content_type = 1
-    posts = Post.objects.filter(status=1,content_type=1).order_by('-created_on')
-    context = {'singe_post':singe_post,'posts':posts}
+    premium_posts = Post.objects.filter(status=1,content_type=1).order_by('-created_on')
+    context = {'singe_premium_post':singe_premium_post,'premium_posts':premium_posts}
     return render(request,"index/premium_inner_page.html",context)
 
-def premiumategorycontentView(request,league_id2):
-    #filter only paid content, content_type = 1
-    category_posts = Post.objects.filter(status=1,content_type=1,pk=league_id2).order_by('-created_on')
-    posts = Post.objects.filter(status=1,content_type=1,pk=league_id2).order_by('-created_on')
+def premiumcategorycontentView(request,league_id):
+    #filter only paid content, content_type = 1 and league id
+    premium_category_posts = Post.objects.filter(status=1,content_type=1,pk=league_id).order_by('-created_on')
+    premium_posts = Post.objects.filter(status=1,content_type=1).order_by('-created_on')
     #initialise a single variable for each league category
     single_league_category = ''
-    for league  in category_posts:
+    for league  in premium_category_posts:
         single_league_category = league.league
-    context = {'category_posts':category_posts,'single_league_category':single_league_category,'posts':posts}
+    context = {'premium_category_posts':premium_category_posts,'single_league_category':single_league_category,'premium_posts':premium_posts}
     return render(request,"index/premium_category_detail.html",context)

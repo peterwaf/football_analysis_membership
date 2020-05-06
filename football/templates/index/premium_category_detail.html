@@ -1,16 +1,16 @@
-{% extends 'base/page_container.html'%}
+{% extends 'base/premium_page_container.html'%}
 {% block content %}
         <!-- Blog Post -->
         <h4>{{single_league_category}}</h4>
         
-        {% for category_post in category_posts %}
+        {% for premium_category_post in premium_category_posts %}
         <div class="card mb-4">
         
-		      <img src="{{ MEDIA_URL }}{{category_post.image}}">
+		      <img src="{{ MEDIA_URL }}{{premium_category_post.image}}">
           <div class="card-body">
-            <h2 class="card-title">{{category_post.title}}</h2>
-            <p class="card-text">{{category_post.content | slice:":400"}}</p>
-            <a href="{% url 'index:premium_post_detail' category_post.slug %}" class="btn btn-primary">Read More &rarr;</a>
+            <h2 class="card-title">{{premium_category_post.title}}</h2>
+            <p class="card-text">{{premium_category_post.content | slice:":400"}}</p>
+            <a href="#" class="btn btn-primary">Read More &rarr;</a>
           </div>
           <div class="card-footer text-muted">
           </div>

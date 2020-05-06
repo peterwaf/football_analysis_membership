@@ -22,10 +22,13 @@ urlpatterns = [
     path('',views.contentView,name='home'),
     path('free-football-tips/',views.contentView,name='free_tips'),
     path('<slug:slug>', views.detailedView, name='post_detail'),
-    path('<int:league_id>/',views.categorycontentView, name='category_detail'),
+    path('<int:league_id>/free-tips',views.categorycontentView, name='category_detail'),
     path('premium-football-tips/',views.premiumcontentView,name='premium_tips'),
     path('<slug:slug>', views.premiumdetailedView, name='premium_post_detail'),
-    path('<int:league_id2>/',views.premiumategorycontentView, name='premium_category_detail'),
+    path('<int:league_id>/premium-tips',views.premiumcategorycontentView, name='premium_category_detail'),
+
+    
+    
     ]
 
     

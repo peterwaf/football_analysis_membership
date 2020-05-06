@@ -1,14 +1,14 @@
-{% extends 'base/page_container.html'%}
+{% extends 'base/premium_page_container.html'%}
 {% block content %}
     <!-- Title -->
-    <h1 class="mt-4">{{singe_post.title}}</h1>
-  <p>{{singe_post.created_on}}</p>
+    <h1 class="mt-4">{{singe_premium_post.title}}</h1>
+  <p>{{singe_premium_post.created_on}}</p>
     <!-- Date/Time -->
     <hr>
     <!-- Preview Image -->
-    <img src="{{ MEDIA_URL }}{{singe_post.image}}">
+    <img src="{{ MEDIA_URL }}{{singe_premium_post.image}}">
     <hr>
     <!-- Post Content -->
-    <p>{{singe_post.content}}</p>
+    <p>{{singe_premium_post.content}}</p>
         
 {% endblock %}

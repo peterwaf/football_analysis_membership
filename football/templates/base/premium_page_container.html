@@ -32,9 +32,9 @@
         <div class="col-lg-6">
           
           <ul class="list-unstyled mb-0">
-            {% for category in posts %}
+            {% for premium_category in premium_posts %}
             <li>
-              <a href="{% url 'index:premium_category_detail' category.id %}">{{  category.league }}</a>
+              <a href="{% url 'index:premium_category_detail' premium_category.id %}"">{{  premium_category.league }}</a>
             </li>
             {% endfor %}
           </ul>
