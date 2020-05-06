@@ -123,3 +123,6 @@ padding-top:30px;
     background-color: #518825;
 }
 
+.pagination a:active{
+    color: black;
+}

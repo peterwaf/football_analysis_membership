@@ -10,7 +10,7 @@
           <div class="card-body">
             <h2 class="card-title">{{premium_category_post.title}}</h2>
             <p class="card-text">{{premium_category_post.content | slice:":400"}}</p>
-            <a href="#" class="btn btn-primary">Read More &rarr;</a>
+            <a href="{% url 'index:premium_post_detail' premium_category_post.slug %}" class="btn btn-primary">Read More &rarr;</a>
           </div>
           <div class="card-footer text-muted">
           </div>
@@ -18,14 +18,22 @@
        {% endfor %}
         
 
-        <!-- Pagination -->
-        <ul class="pagination justify-content-center mb-4">
-          <li class="page-item">
-            <a class="page-link" href="#">&larr; Older</a>
-          </li>
-          <li class="page-item disabled">
-            <a class="page-link" href="#">Newer &rarr;</a>
-          </li>
-        </ul>
+       <!-- Pagination -->
+     {% if premium_category_posts.paginator.num_pages > 1 %}
+     <ul class="pagination justify-content-center mb-4">
+        {% if items.has_previous %}
+        <li class="page-item"><a href="?page=1" class="page-link">First</a></li>
+        <li class="page-item"> <a href="?page={{ items.previous_page_number }}" class="page-link"> &larr; Previous</a></li>
+        {% endif %}
+        <li class="page-item disabled page-link">
+       <span >{{ items.number }}</span>&nbsp;<span>of</span>
+        <span>{{ items.paginator.num_pages }}</span>
+        </li>
+        {% if items.has_next %}
+        <li class="page-item" ><a href="?page={{ items.next_page_number }}" class="page-link">Next 	&rarr;</a> </li>
+        <li class="page-item"> <a href="?page={{ items.paginator.num_pages }}" class="page-link">Last</a></li>
+        {% endif %}
+    </ul>
+    {% endif %}
 
 {% endblock %}

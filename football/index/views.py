@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.views import generic
 from content.models import Post
 from league.models import Leaguetype
+#import paginator
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -10,7 +12,11 @@ from league.models import Leaguetype
 def contentView(request):
     #filter only free content, content_type = 0
     posts = Post.objects.filter(status=1,content_type=0).order_by('-created_on')
-    context = {'posts':posts}
+    paginator = Paginator(posts, 5)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
+    context = {'posts':posts,'items':posts}
+
     return render(request,"index/index.html",context)
 
 def detailedView(request,slug):
@@ -28,7 +34,12 @@ def categorycontentView(request,league_id):
     single_league_category = ''
     for league  in category_posts:
         single_league_category = league.league
-    context = {'category_posts':category_posts,'single_league_category':single_league_category,'posts':posts}
+    
+    paginator = Paginator(category_posts, 5)
+    page = request.GET.get('page')
+    category_posts = paginator.get_page(page)
+
+    context = {'category_posts':category_posts,'single_league_category':single_league_category,'posts':posts,'items':category_posts}
     return render(request,"index/category_detail.html",context)
 
 #default views for premium content with own templates
@@ -36,7 +47,10 @@ def categorycontentView(request,league_id):
 def premiumcontentView(request):
     #filter only paid content, content_type = 1
     premium_posts = Post.objects.filter(status=1,content_type=1).order_by('-created_on')
-    context = {'premium_posts':premium_posts}
+    paginator = Paginator(premium_posts,3)
+    page = request.GET.get('page')
+    premium_posts = paginator.get_page(page)
+    context = {'premium_posts':premium_posts,'items':premium_posts}
     return render(request,"index/premium_index.html",context)
 
 def premiumdetailedView(request,slug):
@@ -54,5 +68,10 @@ def premiumcategorycontentView(request,league_id):
     single_league_category = ''
     for league  in premium_category_posts:
         single_league_category = league.league
-    context = {'premium_category_posts':premium_category_posts,'single_league_category':single_league_category,'premium_posts':premium_posts}
+
+    paginator = Paginator(premium_category_posts, 3)
+    page = request.GET.get('page')
+    premium_category_posts = paginator.get_page(page)
+
+    context = {'premium_category_posts':premium_category_posts,'single_league_category':single_league_category,'premium_posts':premium_posts,'items':premium_category_posts}
     return render(request,"index/premium_category_detail.html",context)
