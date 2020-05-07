@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'users',
     'index',
     'content',
-    'league'
+    'league',
+    'currency',
+    'subscriptions',
 ]
 
 #tell django where our custom user is
