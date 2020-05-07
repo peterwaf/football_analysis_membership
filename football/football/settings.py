@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'league',
     'currency',
     'subscriptions',
+    'payments',
 ]
 
 #tell django where our custom user is
