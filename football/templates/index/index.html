@@ -3,7 +3,12 @@
         <!-- Blog Post -->
         {% for post in posts %}
         <div class="card mb-4">
-		      <img src="{{ MEDIA_URL }}{{post.image}}" alt="No image">
+        {% if  post.image %}
+        <img src="{{ MEDIA_URL }}{{post.image}}" alt="No image">
+        {% else %}
+        <p></p>
+        {% endif %}
+		      
           <div class="card-body">
             <h2 class="card-title">{{post.title}}</h2>
             <p class="card-text">{{post.content | slice:":400"}}</p>
