@@ -1,5 +1,6 @@
 {% extends 'base/premium_page_container.html'%}
 {% block content %}
+{% if  request.user.subscribed == True and request.user.is_authenticated %}
         <!-- Blog Post -->
         <h4>{{single_league_category}}</h4>
         
@@ -35,5 +36,16 @@
         {% endif %}
     </ul>
     {% endif %}
+{% else %}
+<div class="container">
+<h1>Premium Tips | Analysis </h1>
+            <div class="alert-message alert-message-success">
+                <h4>Content Available to subscribed users only</h4>
+                <p> Dear Customer,this content  is visible to subscribed users only. To access sure premium tips/analysis,
+                    please register and subscribe. If you are already registered,
+                    please click <a href="#">here to subscribe</a></p>
+            </div>
+</div>
+{% endif %}
 
 {% endblock %}

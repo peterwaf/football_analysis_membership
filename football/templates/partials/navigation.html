@@ -21,14 +21,27 @@
           </li>
           &nbsp;
           &nbsp;
+          {% if request.user.is_authenticated %}
           <li >
-            <a class="nav-link btn btn btn-outline-info" href="#">Login</a>
+            <a class="nav-link btn btn btn-secondary" href="{% url 'users:profile' %}">My Profile</a>
           </li>
           &nbsp;
           &nbsp;
           <li >
-            <a class="nav-link btn btn btn-outline-info" href="#">Register</a>
+            <a class="nav-link btn btn btn-secondary" href="{% url 'users:logout' %}">Logout</a>
           </li>
+          {% else %}
+          <li >
+            <a class="nav-link btn btn btn-outline-info" href="{% url 'users:login' %}">Login</a>
+          </li>
+          &nbsp;
+          &nbsp;
+          <li >
+            <a class="nav-link btn btn btn-outline-info" href="{% url 'users:register' %}">Register</a>
+          </li>
+          {% endif %}
+          
+          
         </ul>
       </div>
     </div>

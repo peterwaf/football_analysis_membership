@@ -4,7 +4,7 @@ from content.models import Post
 from league.models import Leaguetype
 #import paginator
 from django.core.paginator import Paginator
-
+from users.models import CustomUser
 # Create your views here.
 
 #default views for free content

@@ -21,45 +21,19 @@
                
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <form action="{% url 'users:register' %}" name="frm_customer" method="POST" class="row register-form">
+                        <form action="#" name="frm_login" method="POST" class="row register-form">
                             {% csrf_token %}
                             <div class="container">
-                            <div class="form-group row">
-                                <div class="col-md-12">
-                                    {% for message in messages %}
-                                     {{message}}
-                                    {% endfor %}
-                                </div>
-                                </div>
-                                <h3>Register</h3>
-                                <div class="form-group row">
-                                    <label for="first_name" class="col-md-4">First Name  :</label>
-                                    <div class="col-md-8">{{form.first_name}}</div>
-                                </div>
-                               
-                                <div class="form-group row">
-                                    <label for="last_name" class="col-md-4">Last Name : </label>
-                                    <div class="col-md-8">{{form.last_name}}</div> 
-                                </div>
-    
-                                <div class="form-group row">
-                                    <label for="mobile_number" class="col-md-4">Mobile Number : </label>
-                                    <div class="col-md-8">{{form.mobile_number}}</div> 
-                                </div>
+                                <h3>Login</h3>
     
                                 <div class="form-group row">
                                     <label for="email" class="col-md-4"> Email : </label>
-                                    <div class="col-md-8">{{form.email}}</div> 
+                                    <div class="col-md-8"><input type="email" id="email" name="email" value=""></div> 
                                 </div>
     
                                 <div class="form-group row">
-                                    <label for="password1" class="col-md-4">Password : </label>
-                                    <div class="col-md-8">{{form.password1}}</div> 
-                                </div>
-    
-                                <div class="form-group row">
-                                    <label for="password2" class="col-md-4">Repeat Password : </label>
-                                    <div class="col-md-8">{{form.password2}}</div> 
+                                    <label for="password" class="col-md-4">Password : </label>
+                                    <div class="col-md-8"><input type="password" id="password" name="password" value=""></div> 
                                 </div>
     
                                 <div class="form-group row">
@@ -67,11 +41,17 @@
                                         
                                     </div>
                                     <div class="col-md-8">
-                                        <input type="submit" name="" value="Register"/>
+                                        <input type="submit" name="" value="Login"/>
                                     </div>
                                 </div>
     
-                                
+                                <div class="form-group row">
+                                <div class="col-md-12">
+                                    {% for message in messages %}
+                                     {{message}}
+                                    {% endfor %}
+                                </div>
+                                </div>
     
                                 <div class="form-group row">
                                     <div class="col-md-12">

@@ -1,0 +1,85 @@
+{% load static %}
+{% include 'partials/header.html' %}
+
+<body>
+
+{% include 'partials/navigation.html' %}
+<div class="container customsetter">
+<div class="row">
+<!-- Blog Entries Column -->
+<div class="col-md-12">
+    {% block content %}
+    
+<div class="page-content page-container" id="page-content">
+    <div class="padding">
+        <div class="row container d-flex justify-content-center">
+            <div class="col-xl-8 col-md-12">
+                <div class="card user-card-full">
+                    <div class="row m-l-0 m-r-0">
+                        <div class="col-sm-4 bg-c-lite-green user-profile">
+                            <div class="card-block text-center text-white">
+                                
+                                <h6 class="f-w-600"><p>Hi : {{request.user.first_name}} {{request.user.last_name}}</p></h6>
+                                <p>Subscription Start : {{request.user.subscription_start}} </p> 
+                                <p>Subscription End : {{request.user.subscription_end}} </p>
+                                
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="card-block">
+                                <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Profile Information</h6>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600">Email</p>
+                                        <h6 class="text-muted f-w-400">{{request.user.email}}</h6>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600">Phone</p>
+                                        <h6 class="text-muted f-w-400">{{request.user.mobile_number}}</h6>
+                                    </div>
+                                </div>
+                                <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Date Joined</h6>
+                                <div class="row">
+                                  
+                                    <div class="col-sm-12">
+                                       
+                                        <h6 class="text-muted f-w-400"><p>{{request.user.date_joined}} </p></h6>
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+
+                            <div class="card-block">
+                            <!--space holder-->
+                            </div>
+                          <div class="card-block">
+                            <!--space holder-->
+                            </div>
+                            <div class="card-block">
+                            <!--space holder-->
+                            </div>
+                            <div class="card-block">
+                            <!--space holder-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+    {% endblock %}
+</div>
+</div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+{% include 'partials/body_scripts.html' %}
+{% include 'partials/footer.html' %}
+</body>
+
