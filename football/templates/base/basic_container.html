@@ -1,0 +1,17 @@
+{% load static %}
+{% include 'partials/header.html' %}
+
+<body>
+{% include 'partials/navigation.html' %}
+<div class="container customsetter">
+
+    {% block content %}
+    {% endblock %}
+</div>
+
+<!-- Categories Widget -->
+
+<!-- /.container -->
+{% include 'partials/body_scripts.html' %}
+{% include 'partials/footer.html' %}
+</body>
