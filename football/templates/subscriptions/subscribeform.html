@@ -9,7 +9,6 @@
                         <tr class="bg-c-lite-subscribe">
                        <th scope="col">Subscription Type</th>
                         <th scope="col">Amount</th>
-                   
                         </tr>
                     </thead>
                     <tbody>
@@ -32,13 +31,13 @@
                     </tbody>
                     </table>
                     <div class="px-2">
-                        <form action="" class="justify-content-center bg-c-lite-subscribe" method="post">
+                        <form action=" {% url 'subscriptions:subscribe' %}" class="justify-content-center bg-c-lite-subscribe" method="post">
                         {% csrf_token %}
                         <label for="subscription"> <h4>Select Plan</h4></label>
                             <h3 class="display-4 py-2 text-truncate">
                             <select class="frecuency" id="subscription" name="subscription">
                             {% for subscription in subscriptions %}
-                                  <option value="{{subscription.subscription_type}}">
+                                  <option value="{{subscription.id}}">
                                   {% if subscription.subscription_type == "M" %}
                                    <p>Monthly</p>
                                     {% elif subscription.subscription_type == "W" %}
@@ -54,7 +53,7 @@
                             </h3>
                             <div class="form-group">
                                 <label class="sr-only" for="phone">Phone Number</label>
-                                <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter Phone Number e.g 07XXXXXX" required>
+                                <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter Phone Number e.g 07XXXXXX" hidden>
                             </div>
                             <button type="submit" class="btn btn-dark btn-lg">Subscribe</button>
                         </form>

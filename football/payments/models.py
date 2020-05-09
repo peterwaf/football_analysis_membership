@@ -5,8 +5,8 @@ from subscriptions.models import Subscription
 
 class Payments(models.Model):
     user = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
-    start_date = models.DateField()
-    end_date = models.DateField()
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
     subscription = models.ForeignKey(Subscription,on_delete=models.CASCADE)
     amount = models.FloatField()
 

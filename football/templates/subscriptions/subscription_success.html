@@ -1,0 +1,29 @@
+{% extends 'base/basic_container.html'%}
+{% block content %}
+{% if request.user.is_authenticated %}
+<div class="row text-white custom-bg">
+            <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
+            <div class="container p-4">
+             <h1>Subscription Successfull</h1>
+                    
+            <h4 class="bg-c-lite-subscribe text-dark">Dear {{request.user.first_name}},you are now subscribed to premium content. please click <a href="{% url 'index:premium_tips' %}" style="color:white">Here</a> to access premium content. </h4>
+                
+            
+            </div>
+               </div>
+              </div>
+              <div class="container">
+             
+              </div>
+              <div class="container">
+              <!--space holder-->
+              </div>
+              <div class="container">
+              <!--space holder-->
+              </div>
+              </div>
+
+              <div class="row">
+              </div>
+{% endif %}
+{% endblock %}
