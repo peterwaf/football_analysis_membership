@@ -1,9 +1,9 @@
 {% extends 'base/basic_container.html'%}
 {% block content %}
-
-            <div class="row text-white custom-bg">
+{% if  request.user.is_authenticated %}
+<div class="row text-white custom-bg">
                 <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
-                <h1>Premium Subscription Plans</h1>
+                <h1>Premium Subscription</h1>
                     <table class="table table-striped table-dark">
                     <thead>
                         <tr class="bg-c-lite-subscribe">
@@ -32,18 +32,29 @@
                     </tbody>
                     </table>
                     <div class="px-2">
-                        <form action="" class="justify-content-center bg-c-lite-subscribe">
+                        <form action="" class="justify-content-center bg-c-lite-subscribe" method="post">
+                        {% csrf_token %}
                         <label for="subscription"> <h4>Select Plan</h4></label>
                             <h3 class="display-4 py-2 text-truncate">
-                            <select class="frecuency">
-                                  <option value="0">daily</option>
-                                  <option value="1">weekly</option>
-                                  <option value="2">monthly</option>
+                            <select class="frecuency" id="subscription" name="subscription">
+                            {% for subscription in subscriptions %}
+                                  <option value="{{subscription.subscription_type}}">
+                                  {% if subscription.subscription_type == "M" %}
+                                   <p>Monthly</p>
+                                    {% elif subscription.subscription_type == "W" %}
+                                    <p>Weekly</p>
+                                    {% elif subscription.subscription_type == "A" %}
+                                    <p>Annually</p>
+                                  {% else %}
+                                  <p>Not Available,Please contact admin </p>
+                                  {% endif%}
+                                  </option>
+                            {% endfor %}
                             </select>
                             </h3>
                             <div class="form-group">
-                                <label class="sr-only">Email</label>
-                                <input type="text" class="form-control" placeholder="Enter Phone Number e.g 07XXXXXX" required>
+                                <label class="sr-only" for="phone">Phone Number</label>
+                                <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter Phone Number e.g 07XXXXXX" required>
                             </div>
                             <button type="submit" class="btn btn-dark btn-lg">Subscribe</button>
                         </form>
@@ -63,4 +74,55 @@
 
               <div class="row">
               </div>
+{% else %}
+<div class="row text-white custom-bg">
+            <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
+                <h1>Premium Subscription</h1>
+                    <table class="table table-striped table-dark">
+                    <thead>
+                        <tr class="bg-c-lite-subscribe">
+                       <th scope="col">Subscription Type</th>
+                        <th scope="col">Amount</th>
+                   
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for subscription in subscriptions %}
+                        <tr>
+                        <td>
+                        {% if subscription.subscription_type == "M" %}
+                        <p>Monthly</p>
+                        {% elif subscription.subscription_type == "W" %}
+                        <p>Weekly</p>
+                         {% elif subscription.subscription_type == "A" %}
+                        <p>Annually</p>
+                        {% else %}
+                        <p>No Subscription Type Available</p>
+                        {% endif %}
+                         </td>
+                        <td>{{subscription.currency}}.{{subscription.amount}}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    </table>
+                     <h4 class="table-striped table-dark">Dear customer,please <a href="{% url 'users:register' %}">  register  </a>  to subscribe.Already registered? <a href="{%  url 'users:login' %}">login.</a> </h4>
+                </div>
+              </div>
+              <div class="container">
+             
+              </div>
+              <div class="container">
+              <!--space holder-->
+              </div>
+              <div class="container">
+              <!--space holder-->
+              </div>
+              </div>
+
+              <div class="row">
+              </div>
+
+{% endif %}
+
+            
 {% endblock %}
