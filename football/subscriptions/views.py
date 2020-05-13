@@ -10,6 +10,8 @@ from users.models import CustomUser
 import requests
 from django.http import HttpResponse
 import json #import JSON, which we help us to parse JSON string using json.loads()
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from requests.auth import HTTPBasicAuth #HTTPBasicAuth from requests for authentication purpose.
 from . mpesa_credentials import MpesaAccessToken, LipanaMpesaPpassword
 # Create your views here.
@@ -23,7 +25,7 @@ def getAccessToken(request):
     validated_mpesa_access_token = mpesa_access_token['access_token']
     return HttpResponse(validated_mpesa_access_token)
 
-def lipa_na_mpesa_online(request,phone_number):
+def lipa_na_mpesa_online(request,phone_number,amount):
     access_token = MpesaAccessToken.validated_mpesa_access_token
     api_url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
     headers = {"Authorization": "Bearer %s" % access_token}
@@ -32,16 +34,32 @@ def lipa_na_mpesa_online(request,phone_number):
         "Password": LipanaMpesaPpassword.decode_password,
         "Timestamp": LipanaMpesaPpassword.lipa_time,
         "TransactionType": "CustomerPayBillOnline",
-        "Amount": 1,
+        "Amount": amount,
         "PartyA": phone_number,  # replace with customer phone number to get stk push
         "PartyB": LipanaMpesaPpassword.Business_short_code,
         "PhoneNumber": phone_number,  # replace with customer phone number to get stk push
-        "CallBackURL": "https://sandbox.safaricom.co.ke/mpesa/",
-        "AccountReference": "Football",
+        "CallBackURL": "http://287b159d.ngrok.io/callback/",
+        "AccountReference": phone_number,
         "TransactionDesc": "Testing stk push"
     }
     response = requests.post(api_url, json=request, headers=headers)
     return HttpResponse('success')
+
+
+@csrf_exempt
+def callback(request):
+    json_data = json.loads(request.body)
+    # print(json_data)
+    body = json_data['Body']
+    stkCallback = body['stkCallback']
+    resultCode = stkCallback['ResultCode']
+    print('ResultCode: ',resultCode)
+    print('MerchantRequestID',' ',stkCallback['MerchantRequestID'])
+    data = {
+        'status': 'ok'
+    }
+    return JsonResponse(data)
+
 
 def subscription_success(request):
     context = {}
@@ -84,7 +102,7 @@ def subscribe(request):
         else:
             amount += 0
         #grab payments table and update with new values
-        lipa_na_mpesa_online(request,phone_number)
+        lipa_na_mpesa_online(request,phone_number,amount)
         #not sure how to validate if payment is made
         payments_data = Payments()
         payments_data.user = user
