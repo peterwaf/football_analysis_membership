@@ -25,7 +25,7 @@ SECRET_KEY = '*n*v*nz)(jh3meq$-tzsv#x%(a)#tv6v@%e$jy8==8zh@pcu3)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['287b159d.ngrok.io','127.0.0.1']
+ALLOWED_HOSTS = ['b67d5f80.ngrok.io','127.0.0.1']
 
 
 # Application definition
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'currency',
     'subscriptions',
     'payments',
+    'M_PESA',
 ]
 
 #tell django where our custom user is

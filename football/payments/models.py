@@ -9,6 +9,8 @@ class Payments(models.Model):
     end_date = models.DateTimeField()
     subscription = models.ForeignKey(Subscription,on_delete=models.CASCADE)
     amount = models.FloatField()
+    merchantId = models.CharField(max_length=150)
+    validation = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'tbl_payments'

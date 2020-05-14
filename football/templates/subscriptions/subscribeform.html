@@ -52,10 +52,21 @@
                             </select>
                             </h3>
                             <div class="form-group">
+                            {% if messages %}
+                                        <ul class="messages">
+                                            {% for message in messages %}
+                                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                            {% endfor %}
+                                        </ul>
+                            {% endif %}
                                 <label class="sr-only" for="phone">Phone Number</label>
                                 <input type="text" class="form-control" name="phone_number" id="phone_number" placeholder="Enter Phone Number e.g 07XXXXXX">
                             </div>
                             <button type="submit" class="btn btn-dark btn-lg">Subscribe</button>
+                            <div class="form-group">
+                                
+                            </div>
+                            
                         </form>
                     </div>
                 </div>
