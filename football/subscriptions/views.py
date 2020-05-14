@@ -129,7 +129,7 @@ def subscribe(request):
         else:
             messages.error(request,"Invalid Transaction")
             return redirect('subscriptions:subscribe')
-            
+
     context = {'subscriptions':subscriptions}
     return render(request,"subscriptions/subscribeform.html",context)
 
@@ -148,6 +148,8 @@ def callback(request):
         metadata_items = metadata.get('Item')
         transaction_code = metadata_items[1]
         transaction_phone_number_container = metadata_items[4]
+        transaction_amount = metadata_items[0]
+        mpesa_database.amount = transaction_amount['Value']
         mpesa_database.phone_number = transaction_phone_number_container['Value'] #to save in DB
         mpesa_database.transaction_code = transaction_code['Value'] #to save in DB
         mpesa_database.result_code = resultCode

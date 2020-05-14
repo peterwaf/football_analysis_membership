@@ -6,6 +6,7 @@ class Mpesa(models.Model):
     transaction_code = models.CharField(max_length=150)
     result_code = models.CharField(max_length=10)
     merchant_id = models.CharField(max_length=150)
+    amount = models.models.FloatField()
 
     class Meta:
         db_table = 'tbl_mpesa'
