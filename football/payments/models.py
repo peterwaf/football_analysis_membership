@@ -10,10 +10,12 @@ class Payments(models.Model):
     subscription = models.ForeignKey(Subscription,on_delete=models.CASCADE)
     amount = models.FloatField()
     merchantId = models.CharField(max_length=150)
+    phone_number = models.CharField(max_length=20)
     validation = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'tbl_payments'
+        verbose_name_plural = 'Payments'
     
     def __str__(self):
         return self.subscription

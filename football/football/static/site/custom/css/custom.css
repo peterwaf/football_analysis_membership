@@ -427,3 +427,7 @@ form:before {
     background-image: url("stadiumoptimised.jpg");
     min-height: 700px;
 }
+ul.messages li.error{
+color:#00c6ff;
+list-style-type: none;
+}

@@ -32,7 +32,7 @@ def lipa_na_mpesa_online(request,phone_number,amount):
         "PartyA": phone_number,  # replace with customer phone number to get stk push
         "PartyB": LipanaMpesaPpassword.Business_short_code,
         "PhoneNumber": phone_number,  # replace with customer phone number to get stk push
-        "CallBackURL": "http://82f04521.ngrok.io/callback/", #already defined under urls,replace in production
+        "CallBackURL": "http://5adbf0fc.ngrok.io/callback/", #already defined under urls,replace in production
         "AccountReference": phone_number,
         "TransactionDesc": "Testing stk push"
     }
@@ -43,35 +43,6 @@ def lipa_na_mpesa_online(request,phone_number,amount):
     print('MERCHANT REQUEST ID :',merchant_request_id)
     return merchant_request_id
 
-
-@csrf_exempt
-def callback(request):
-    json_data = json.loads(request.body)
-    # print(json_data)
-    body = json_data['Body']
-    stkCallback = body['stkCallback']
-    metadata = stkCallback.get('CallbackMetadata')
-    print("\n Meta:",metadata)
-    resultCode = stkCallback['ResultCode'] #to save in DB
-    marchant_request_id = stkCallback['MerchantRequestID'] #to save in DB
-    mpesa_database = Mpesa()
-    if metadata:
-        metadata_items = metadata.get('Item')
-        transaction_code = metadata_items[1]
-        transaction_phone_number_container = metadata_items[4]
-        transaction_amount = metadata_items[0]
-        mpesa_database.amount = transaction_amount['Value']
-        mpesa_database.phone_number = transaction_phone_number_container['Value'] #to save in DB
-        mpesa_database.transaction_code = transaction_code['Value'] #to save in DB
-        mpesa_database.result_code = resultCode
-        mpesa_database.merchant_id = marchant_request_id
-        mpesa_database.save()
-    print('\nMerchantRequestID',' ',stkCallback['MerchantRequestID'])
-    # query payments yable where mobile = 254723456789 and confirm=false
-    data = {
-        'status': 'ok'
-    }
-    return JsonResponse(data)
 
 
 def getAccessToken(request):
@@ -147,21 +118,25 @@ def subscribe(request):
         payments_data.subscription = user_subscription
         payments_data.amount = amount
         payments_data.merchantId = merchant_request_id
+        payments_data.phone_number = phone_number
         payments_data.validation = False
         payments_data.save()
-        #wait for 10 seconds for client to pay
+        #wait for 15 seconds for client to pay
         time.sleep(15)
-        # validate then save
-        #instance of the mpesa table
+        # validate then save payment info from safaricom in M_PESA DB
         try:
-            mpesa_item = Mpesa.objects.get(merchant_id=merchant_request_id)
+            #if merchand id from safaricom is equal to request merchant id and result code is 0 (ok)
+            mpesa_item = Mpesa.objects.get(merchant_id=merchant_request_id,result_code=0)
+            #validate the payment
             payments_data.validation = True
             payments_data.save()
-            #change subscription of the user to True
+            #change subscription of the user to True and start date-> end date
             user.subscribed = True
+            user.subscription_start = start_date
+            user.subscription_end = end_date
             user.save()
             return redirect('subscriptions:success')
-            
+        #raise error to the user if transaction is not validated
         except ObjectDoesNotExist as ex:
             messages.error(request,"Transaction Failed.")
             return redirect('subscriptions:subscribe')
@@ -169,3 +144,33 @@ def subscribe(request):
     context = {'subscriptions':subscriptions}
     return render(request,"subscriptions/subscribeform.html",context)
 
+@csrf_exempt
+def callback(request):
+    json_data = json.loads(request.body)
+    # print(json_data)
+    body = json_data['Body']
+    stkCallback = body['stkCallback']
+    metadata = stkCallback.get('CallbackMetadata')
+    print("\n Meta:",metadata)
+    resultCode = stkCallback['ResultCode'] #to save in DB
+    marchant_request_id = stkCallback['MerchantRequestID'] #to save in DB
+    mpesa_database = Mpesa()
+    if metadata:
+        metadata_items = metadata.get('Item')
+        transaction_code = metadata_items[1]
+        transaction_phone_number_container = metadata_items[4]
+        transaction_amount = metadata_items[0]
+        mpesa_database.amount = transaction_amount['Value']
+        mpesa_database.phone_number = transaction_phone_number_container['Value'] #to save in DB
+        mpesa_database.transaction_code = transaction_code['Value'] #to save in DB
+        mpesa_database.result_code = resultCode
+        mpesa_database.merchant_id = marchant_request_id
+        if resultCode == 0:
+            #if transaction is valid, save
+            mpesa_database.save()
+    print('\nMerchantRequestID',' ',stkCallback['MerchantRequestID'])
+    # query payments yable where mobile = 254723456789 and confirm=false
+    data = {
+        'status': 'ok'
+    }
+    return JsonResponse(data)
