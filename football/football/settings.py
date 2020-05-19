@@ -25,7 +25,7 @@ SECRET_KEY = '*n*v*nz)(jh3meq$-tzsv#x%(a)#tv6v@%e$jy8==8zh@pcu3)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['5adbf0fc.ngrok.io','127.0.0.1']
+ALLOWED_HOSTS = ['4d32c037.ngrok.io','127.0.0.1']
 
 
 # Application definition
@@ -118,6 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -141,3 +142,11 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'football/static')]
 MEDIA_ROOT = os.path.join('media')
 MEDIA_URL = '/media/'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'peterwafulah@gmail.com'
+EMAIL_HOST_PASSWORD = 'hruukgvgpznvlxey'

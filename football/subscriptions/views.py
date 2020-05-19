@@ -32,7 +32,7 @@ def lipa_na_mpesa_online(request,phone_number,amount):
         "PartyA": phone_number,  # replace with customer phone number to get stk push
         "PartyB": LipanaMpesaPpassword.Business_short_code,
         "PhoneNumber": phone_number,  # replace with customer phone number to get stk push
-        "CallBackURL": "http://5adbf0fc.ngrok.io/callback/", #already defined under urls,replace in production
+        "CallBackURL": "http://4d32c037.ngrok.io/callback/", #already defined under urls,replace in production
         "AccountReference": phone_number,
         "TransactionDesc": "Testing stk push"
     }
@@ -122,7 +122,7 @@ def subscribe(request):
         payments_data.validation = False
         payments_data.save()
         #wait for 15 seconds for client to pay
-        time.sleep(15)
+        time.sleep(10)
         # validate then save payment info from safaricom in M_PESA DB
         try:
             #if merchand id from safaricom is equal to request merchant id and result code is 0 (ok)
@@ -138,7 +138,7 @@ def subscribe(request):
             return redirect('subscriptions:success')
         #raise error to the user if transaction is not validated
         except ObjectDoesNotExist as ex:
-            messages.error(request,"Transaction Failed.")
+            messages.error(request,"Confirmation Error.Please foward your payment sms to 0722412767")
             return redirect('subscriptions:subscribe')
 
     context = {'subscriptions':subscriptions}
@@ -168,6 +168,8 @@ def callback(request):
         if resultCode == 0:
             #if transaction is valid, save
             mpesa_database.save()
+        else:
+            print('Callback Result code',resultCode)
     print('\nMerchantRequestID',' ',stkCallback['MerchantRequestID'])
     # query payments yable where mobile = 254723456789 and confirm=false
     data = {

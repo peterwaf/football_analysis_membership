@@ -116,8 +116,9 @@ form input{
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease
 }
-.customsetter{
-padding-top:30px;
+.customsetter {
+    padding-top: 30px;
+    min-height: 600px;
 }
 .navbar-light{
     background-color: #518825;
@@ -380,8 +381,6 @@ input.btn.btn-lg:focus {
     border-bottom-right-radius: 0;
 }
 button.btn {
-    width: 40%;
-    height: 60px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }

@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,6 +25,8 @@ urlpatterns = [
     path('',include('index.urls')),
     path('',include('subscriptions.urls')),
     path('',include('M_PESA.urls')),
+    path('',include('content.urls')),
+
 ]
 
 if settings.DEBUG is True:
