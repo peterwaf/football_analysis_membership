@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views import generic
+from django.db.models import Q
 from content.models import Post
 from league.models import Leaguetype
 #import paginator
@@ -75,3 +76,26 @@ def premiumcategorycontentView(request,league_id):
 
     context = {'premium_category_posts':premium_category_posts,'single_league_category':single_league_category,'premium_posts':premium_posts,'items':premium_category_posts}
     return render(request,"index/premium_category_detail.html",context)
+
+#search functionality
+
+
+def search_list(request):
+    #free posts search
+    posts_list = Post.objects.filter(status=1,content_type=0).order_by('-created_on')
+    query = request.GET.get('q')
+    if query:
+        posts_list = Post.objects.filter(
+            Q(title__icontains=query) | Q(content__icontains=query) |
+            Q(league__icontains=query)
+        ).distinct()
+
+    paginator = Paginator(posts_list, 3)
+    page = request.GET.get('page')
+    free_category_posts = paginator.get_page(page)
+
+    context = {
+        'posts': posts_list,
+        'free_category_posts':free_category_posts,
+    }
+    return render(request, "index/search_list.html", context)
