@@ -1,6 +1,6 @@
 {% extends 'base/premium_page_container.html'%}
-{% if  request.user.subscribed == True and request.user.is_authenticated %}
 {% block content %}
+{% if  request.user.subscribed == True and request.user.is_authenticated %}
     <!-- Title -->
     <h1 class="mt-4">{{singe_premium_post.title}}</h1>
   <p>{{singe_premium_post.created_on}}</p>

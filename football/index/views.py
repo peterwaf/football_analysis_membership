@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.views import generic
 from django.db.models import Q
 from content.models import Post
@@ -13,11 +13,16 @@ from users.models import CustomUser
 def contentView(request):
     #filter only free content, content_type = 0
     posts = Post.objects.filter(status=1,content_type=0).order_by('-created_on')
+    query = request.GET.get('q')
+    if query:
+        #filter only free content by default when the user searches
+        posts = Post.objects.filter(
+            Q(title__icontains=query,status=1,content_type=0) | Q(content__icontains=query,status=1,content_type=0)
+        ).distinct()
     paginator = Paginator(posts, 5)
     page = request.GET.get('page')
     posts = paginator.get_page(page)
     context = {'posts':posts,'items':posts}
-
     return render(request,"index/index.html",context)
 
 def detailedView(request,slug):
@@ -26,7 +31,7 @@ def detailedView(request,slug):
     posts = Post.objects.filter(status=1,content_type=0).order_by('-created_on')
     context = {'singe_post':singe_post,'posts':posts}
     return render(request,"index/inner_page.html",context)
-
+    
 def categorycontentView(request,league_id):
     #filter only free content, content_type = 0 and league id
     category_posts = Post.objects.filter(status=1,content_type=0,pk=league_id).order_by('-created_on')
@@ -48,6 +53,12 @@ def categorycontentView(request,league_id):
 def premiumcontentView(request):
     #filter only paid content, content_type = 1
     premium_posts = Post.objects.filter(status=1,content_type=1).order_by('-created_on')
+    query = request.GET.get('a')
+    if query:
+        #filter anything if the user is subscribed
+        premium_posts = Post.objects.filter(
+            Q(title__icontains=query) | Q(content__icontains=query)
+        ).distinct()
     paginator = Paginator(premium_posts,3)
     page = request.GET.get('page')
     premium_posts = paginator.get_page(page)
@@ -77,25 +88,20 @@ def premiumcategorycontentView(request,league_id):
     context = {'premium_category_posts':premium_category_posts,'single_league_category':single_league_category,'premium_posts':premium_posts,'items':premium_category_posts}
     return render(request,"index/premium_category_detail.html",context)
 
-#search functionality
 
+#search functionality for premium page when free users search
 
-def search_list(request):
-    #free posts search
-    posts_list = Post.objects.filter(status=1,content_type=0).order_by('-created_on')
+def premiumcontentView(request):
+    #filter only paid content, content_type = 1
+    premium_posts = Post.objects.filter(status=1,content_type=0).order_by('-created_on')
     query = request.GET.get('q')
     if query:
-        posts_list = Post.objects.filter(
-            Q(title__icontains=query) | Q(content__icontains=query) |
-            Q(league__icontains=query)
+        #filter only free content by default when unsubscribed user searches
+        premium_posts = Post.objects.filter(
+            Q(title__icontains=query,status=1,content_type=0) | Q(content__icontains=query,status=1,content_type=0)
         ).distinct()
-
-    paginator = Paginator(posts_list, 3)
+    paginator = Paginator(premium_posts,3)
     page = request.GET.get('page')
-    free_category_posts = paginator.get_page(page)
-
-    context = {
-        'posts': posts_list,
-        'free_category_posts':free_category_posts,
-    }
-    return render(request, "index/search_list.html", context)
+    premium_posts = paginator.get_page(page)
+    context = {'premium_posts':premium_posts,'items':premium_posts}
+    return render(request,"index/premium_index.html",context)
