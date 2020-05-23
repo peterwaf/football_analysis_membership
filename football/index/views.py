@@ -19,6 +19,11 @@ def contentView(request):
         posts = Post.objects.filter(
             Q(title__icontains=query,status=1,content_type=0) | Q(content__icontains=query,status=1,content_type=0)
         ).distinct()
+        paginator = Paginator(posts, 5)
+        page = request.GET.get('page')
+        posts = paginator.get_page(page)
+        context = {'posts':posts,'items':posts}
+        return render(request,"index/index.html",context)
     paginator = Paginator(posts, 5)
     page = request.GET.get('page')
     posts = paginator.get_page(page)
@@ -54,11 +59,29 @@ def premiumcontentView(request):
     #filter only paid content, content_type = 1
     premium_posts = Post.objects.filter(status=1,content_type=1).order_by('-created_on')
     query = request.GET.get('a')
+    queryfree = request.GET.get('q')
     if query:
         #filter anything if the user is subscribed
         premium_posts = Post.objects.filter(
             Q(title__icontains=query) | Q(content__icontains=query)
         ).distinct()
+        paginator = Paginator(premium_posts,3)
+        page = request.GET.get('page')
+        premium_posts = paginator.get_page(page)
+        context = {'premium_posts':premium_posts,'items':premium_posts}
+        return render(request,"index/premium_index.html",context)
+
+    elif queryfree:
+         #filter FREE CONTENT if the user is unsubscribed # CONDITION CHECKED IN THE TEMPLATE
+        premium_posts = Post.objects.filter(
+            Q(title__icontains=queryfree,status=1,content_type=0) | Q(content__icontains=queryfree,status=1,content_type=0)
+        ).distinct()
+        paginator = Paginator(premium_posts,3)
+        page = request.GET.get('page')
+        premium_posts = paginator.get_page(page)
+        context = {'premium_posts':premium_posts,'items':premium_posts}
+        return render(request,"index/premium_index.html",context)
+
     paginator = Paginator(premium_posts,3)
     page = request.GET.get('page')
     premium_posts = paginator.get_page(page)
@@ -89,19 +112,4 @@ def premiumcategorycontentView(request,league_id):
     return render(request,"index/premium_category_detail.html",context)
 
 
-#search functionality for premium page when free users search
 
-def premiumcontentView(request):
-    #filter only paid content, content_type = 1
-    premium_posts = Post.objects.filter(status=1,content_type=0).order_by('-created_on')
-    query = request.GET.get('q')
-    if query:
-        #filter only free content by default when unsubscribed user searches
-        premium_posts = Post.objects.filter(
-            Q(title__icontains=query,status=1,content_type=0) | Q(content__icontains=query,status=1,content_type=0)
-        ).distinct()
-    paginator = Paginator(premium_posts,3)
-    page = request.GET.get('page')
-    premium_posts = paginator.get_page(page)
-    context = {'premium_posts':premium_posts,'items':premium_posts}
-    return render(request,"index/premium_index.html",context)
