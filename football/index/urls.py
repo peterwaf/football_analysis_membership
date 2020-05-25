@@ -26,6 +26,7 @@ urlpatterns = [
     path('premium-football-tips/',views.premiumcontentView,name='premium_tips'),
     path('<slug:slug>/premium-foootball-tips', views.premiumdetailedView, name='premium_post_detail'),
     path('<int:league_id>/premium-tips/',views.premiumcategorycontentView, name='premium_category_detail'),
+    path('contact_us/',views.contact_us,name='contact_us'),
 
     
     

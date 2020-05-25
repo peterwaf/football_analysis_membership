@@ -111,5 +111,10 @@ def premiumcategorycontentView(request,league_id):
     context = {'premium_category_posts':premium_category_posts,'single_league_category':single_league_category,'premium_posts':premium_posts,'items':premium_category_posts}
     return render(request,"index/premium_category_detail.html",context)
 
+#contact us
+
+def contact_us(request):
+    context = {}
+    return render(request,"index/contact_us.html",context)
 
 
