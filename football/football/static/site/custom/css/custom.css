@@ -410,9 +410,9 @@ form:before {
     position: absolute;
     top: 0;
     width: 100%;
-    background-color: rgba(0,0,0,0.3);
     z-index: -1;
-    border-radius: 10px;
+    border:1px dotted grey;
+    background-color: #fff;
 }
 
 .bg-c-lite-subscribe {
@@ -431,9 +431,8 @@ color:#00c6ff;
 list-style-type: none;
 }
 
-#contactform
 
-
+/* contact us page */
 .contact-form{
     background: #fff;
     margin-top: 10%;
@@ -443,17 +442,12 @@ list-style-type: none;
 .contact-form .form-control{
     border-radius:1rem;
 }
-.contact-image{
+div.contact-icon{
     text-align: center;
 }
-.contact-image img{
-    border-radius: 6rem;
-    width: 11%;
-    margin-top: -3%;
-    transform: rotate(29deg);
-}
+
 .contact-form form{
-    padding: 14%;
+    padding: 9%;
 }
 .contact-form form .row{
     margin-bottom: -7%;
@@ -462,16 +456,16 @@ list-style-type: none;
     margin-bottom: 8%;
     margin-top: -10%;
     text-align: center;
-    color: #0062cc;
+    color: #f06817;
 }
 .contact-form .btnContact {
     width: 50%;
     border: none;
     border-radius: 1rem;
     padding: 1.5%;
-    background: #dc3545;
+    background: #f06817;
     font-weight: 600;
-    color: #fff;
+    color: #000;
     cursor: pointer;
 }
 .btnContactSubmit
