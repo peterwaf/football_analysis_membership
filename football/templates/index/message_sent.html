@@ -1,0 +1,25 @@
+{% load static %}
+{% include 'partials/header.html' %}
+
+<body>
+
+{% include 'partials/navigation.html' %}
+<div class="container customsetter">
+<div class="row">
+<!-- Blog Entries Column -->
+<div class="col-md-12">
+    {% block content %}
+        <div class="container-fluid contact-form">
+        <h3 class="sent">Your message has been sent <br/> Thank you.</h3>
+          <img alt="" src="{% static 'images/sent.jpg' %}">
+        </div>
+    {% endblock %}
+</div>
+</div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+{% include 'partials/body_scripts.html' %}
+{% include 'partials/footer.html' %}
+</body>
+

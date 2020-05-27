@@ -6,6 +6,10 @@ from league.models import Leaguetype
 #import paginator
 from django.core.paginator import Paginator
 from users.models import CustomUser
+#import django send mail module
+from django.core.mail import send_mail
+#import messages for forms
+from django.contrib import messages
 # Create your views here.
 
 #default views for free content
@@ -114,6 +118,22 @@ def premiumcategorycontentView(request,league_id):
 #contact us
 
 def contact_us(request):
+    if request.method == "POST":
+        form = request.POST
+        name = form['txtName']
+        email = form['txtEmail']
+        phone = form['txtPhone']
+        message = form['txtMsg']
+        full_message = 'From : '+ name + '\n'+ 'Phone Number : ' + phone + '\n' + 'Message' + '\n' + message
+        send_mail(
+                'Customer Message from footballsuretips.com',
+                full_message,
+                email,
+                ['peterwafula@gmail.com'],
+                fail_silently=False,
+            )
+        return render(request,"index/message_sent.html")
+
     context = {}
     return render(request,"index/contact_us.html",context)
 

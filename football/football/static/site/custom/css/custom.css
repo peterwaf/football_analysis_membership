@@ -438,6 +438,7 @@ list-style-type: none;
     margin-top: 10%;
     margin-bottom: 5%;
     width: 70%;
+    text-align: center;
 }
 .contact-form .form-control{
     border-radius:1rem;
@@ -477,4 +478,9 @@ div.contact-icon{
     background-color: #0062cc;
     border: none;
     cursor: pointer;
+}
+
+.sent{
+    padding-top:10px;
+    color:000;
 }
