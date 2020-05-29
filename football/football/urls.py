@@ -26,6 +26,7 @@ urlpatterns = [
     path('',include('subscriptions.urls')),
     path('',include('M_PESA.urls')),
     path('',include('content.urls')),
+    path('',include('dashboard.urls')),
 
 ]
 

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'subscriptions',
     'payments',
     'M_PESA',
+    'dashboard',
 ]
 
 #tell django where our custom user is

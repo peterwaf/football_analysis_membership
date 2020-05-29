@@ -16,20 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from . import views
-app_name = 'index'
+app_name = 'dashboard'
 
 urlpatterns = [
-    path('',views.contentView,name='home'),
-    path('free-football-tips/',views.contentView,name='free_tips'),
-    path('<slug:slug>/details', views.detailedView, name='post_detail'),
-    path('<int:league_id>/free-tips',views.categorycontentView, name='category_detail'),
-    path('premium-football-tips/',views.premiumcontentView,name='premium_tips'),
-    path('<slug:slug>/premium-foootball-tips', views.premiumdetailedView, name='premium_post_detail'),
-    path('<int:league_id>/premium-tips/',views.premiumcategorycontentView, name='premium_category_detail'),
-    path('contact_us/',views.contact_us,name='contact_us'),
-
-    
-    
-    ]
-
-    
+    path('dashboard/',views.dashboard,name='dashboard'),
+]
