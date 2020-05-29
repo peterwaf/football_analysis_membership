@@ -1,0 +1,16 @@
+{% extends 'base/dashboard_container.html' %}
+{% block content %}
+ <div class="container-fluid">
+<br>
+                        <div class="card mb-4">
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>Add Content</div>
+                            <div class="card-body">
+                                <form method="POST" class="post-form">
+                                {% csrf_token %}
+                                    {{ form.as_table }}
+                                    <button type="submit" class="save btn btn-default">Save</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+{% endblock content %}
