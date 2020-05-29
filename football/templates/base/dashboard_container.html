@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    {% include 'partials/dashboard_head.html' %}
+    <body class="sb-nav-fixed">
+        {% include 'partials/dashboard_top_nav.html' %}
+        <div id="layoutSidenav">
+            {% include 'partials/dashboard_side_nav.html' %}
+            <div id="layoutSidenav_content">
+                <main>
+                   {% block content %}
+
+                   {% endblock content %}
+                </main>
+            {% include 'partials/dashboard_footer.html' %}    
+    </body>
+</html>
