@@ -1,8 +1,10 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
+from django.contrib import messages
 from content.models import Post
 from .forms import AddPosts
 from django.utils import timezone
+#update unicode
 # Create your views here.
 def dashboard(request):
     #show all posts
@@ -19,8 +21,9 @@ def addPosts(request):
         Post.created_on = timezone.now()
         Post.author = request.user
         Post.save()
-        return redirect('dashboard:dashboard')
-
+        messages.info(request,'Post Successfully Added')
+        return redirect('dashboard:add')
+        
     else:
         form = AddPosts()
     context = {'form':form}

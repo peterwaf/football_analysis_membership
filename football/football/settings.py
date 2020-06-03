@@ -46,7 +46,11 @@ INSTALLED_APPS = [
     'payments',
     'M_PESA',
     'dashboard',
+    'crispy_forms',
 ]
+
+#load crispy forms bootstrap
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 #tell django where our custom user is
 
