@@ -20,5 +20,6 @@ app_name = 'dashboard'
 
 urlpatterns = [
     path('dashboard/',views.dashboard,name='dashboard'),
-    path('add_posts/',views.addPosts,name="add")
+    path('add_posts/',views.addPosts,name="add"),
+    path('edit_post/<int:pk>/',views.editPost,name="edit_post"),
 ]

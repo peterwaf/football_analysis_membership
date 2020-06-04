@@ -36,7 +36,8 @@
                                         <tbody>
                                           {% for post in all_posts %}
                                             <tr>
-                                                <td>{{post.id}}</td>
+                                            
+                                                <td> <a href="{% url 'dashboard:edit_post' post.id %}">{{post.id}}</a></td>
                                                 <td>{{post.title}}</td>
                                                 <td>{{post.image}}</td>
                                                 <td>{{post.slug}}</td>
