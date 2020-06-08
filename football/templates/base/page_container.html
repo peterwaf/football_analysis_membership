@@ -19,7 +19,6 @@
     
      <form method="get">
       <div class="input-group">
-      
         <input type="text" name="a" value="{{ request.GET.q }}" class="form-control" placeholder="Search for...">
         <span class="input-group-btn">
           <button class="btn btn-secondary" type="submit">Go!</button>
@@ -51,9 +50,9 @@
         <div class="col-lg-6">
           
           <ul class="list-unstyled mb-0">
-            {% for category_post in posts %}
+            {% for league in league_lists %}
             <li>
-              <a href="{% url 'index:category_detail' category_post.id %}">{{  category_post.league }}</a>
+              <a href="{% url 'index:category_detail' league.id %}">{{  league.league }}</a>
             </li>
             {% endfor %}
           </ul>

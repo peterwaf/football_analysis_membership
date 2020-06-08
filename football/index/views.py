@@ -17,6 +17,7 @@ from django.contrib import messages
 def contentView(request):
     #filter only free content, content_type = 0
     posts = Post.objects.filter(status=1,content_type=0).order_by('-created_on')
+    league_lists = Leaguetype.objects.all()
     query = request.GET.get('q')
     if query:
         #filter only free content by default when the user searches
@@ -31,7 +32,7 @@ def contentView(request):
     paginator = Paginator(posts, 5)
     page = request.GET.get('page')
     posts = paginator.get_page(page)
-    context = {'posts':posts,'items':posts}
+    context = {'posts':posts,'items':posts,'league_lists':league_lists}
     return render(request,"index/index.html",context)
 
 def detailedView(request,slug):
@@ -43,18 +44,20 @@ def detailedView(request,slug):
     
 def categorycontentView(request,league_id):
     #filter only free content, content_type = 0 and league id
-    category_posts = Post.objects.filter(status=1,content_type=0,pk=league_id).order_by('-created_on')
+    category_posts = Post.objects.filter(status=1,content_type=0,league=league_id).order_by('-created_on')
     posts = Post.objects.filter(status=1,content_type=0).order_by('-created_on')
+    league_lists = Leaguetype.objects.all()
     #initialise a single variable for each league category
     single_league_category = ''
     for league  in category_posts:
         single_league_category = league.league
-    
     paginator = Paginator(category_posts, 5)
     page = request.GET.get('page')
     category_posts = paginator.get_page(page)
-
-    context = {'category_posts':category_posts,'single_league_category':single_league_category,'posts':posts,'items':category_posts}
+    context = {'category_posts':category_posts,
+    'single_league_category':single_league_category,
+    'posts':posts,'items':category_posts,
+    'league_lists':league_lists}
     return render(request,"index/category_detail.html",context)
 
 #default views for premium content with own templates
