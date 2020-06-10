@@ -12,25 +12,23 @@
 </div>
 <div class="col-md-3">
 <!-- Search Widget -->
+<!-- Search Widget -->
 <div class="card my-4">
     <h5 class="card-header">Search</h5>
     <div class="card-body">
-    {% if  request.user.subscribed %}
-    
+    {% if request.user.subscribed and request.user.authenticated %}
      <form method="get">
       <div class="input-group">
-        <input type="text" name="a" value="{{ request.GET.q }}" class="form-control" placeholder="Search for...">
+        <input type="text" name="a" value="{{ request.GET.a}}" class="form-control" placeholder="Search for...">
         <span class="input-group-btn">
           <button class="btn btn-secondary" type="submit">Go!</button>
         </span>
       </div>
     </form>
 
-
     {% else %}
-    <form method="get">
+     <form method="get">
       <div class="input-group">
-      
         <input type="text" name="q" value="{{ request.GET.q }}" class="form-control" placeholder="Search for...">
         <span class="input-group-btn">
           <button class="btn btn-secondary" type="submit">Go!</button>
@@ -39,9 +37,9 @@
     </form>
     
     {% endif %}
+     
     </div>
   </div>
-
 <!-- Categories Widget -->
 <div class="card my-4">
     <h5 class="card-header">Categories</h5>

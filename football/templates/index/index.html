@@ -1,6 +1,7 @@
 {% extends 'base/page_container.html'%}
 {% block content %}
         <!-- Blog Post -->
+        {% if  posts %}
         {% for post in posts %}
         <div class="card mb-4">
         {% if  post.image %}
@@ -8,7 +9,6 @@
         {% else %}
         <p></p>
         {% endif %}
-		      
           <div class="card-body">
             <h2 class="card-title">{{post.title}}</h2>
             <p class="card-text">{{post.content | slice:":400"}}</p>
@@ -21,6 +21,15 @@
         </div>
        {% endfor %}
 
+
+       {% else %}
+       <div class="card mb-4">
+          <div class="card-body">
+          <p>No results</p>
+          </div>
+      </div>
+
+       {% endif %}
         <!-- Pagination -->
      {% if posts.paginator.num_pages > 1 %}
      <ul class="pagination justify-content-center mb-4">

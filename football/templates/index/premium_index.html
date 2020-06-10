@@ -2,6 +2,7 @@
 {% block content %}
 {% if  request.user.subscribed == True and request.user.is_authenticated %}
  <!-- Blog Post -->
+         {% if premium_posts %}
         {% for premium_post in premium_posts %}
         <div class="card mb-4">
 		      <img src="{{ MEDIA_URL }}{{premium_post.image}}" alt="No image">
@@ -16,6 +17,15 @@
           </div>
         </div>
        {% endfor %}
+       {% else %}
+       <div class="card mb-4">
+          <div class="card-body">
+            <p>No results</p>
+          </div>
+          <div class="card-footer text-muted">
+          </div>
+        </div>
+      {% endif %}
        
 
      <!-- Pagination -->

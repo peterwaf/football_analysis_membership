@@ -1,6 +1,8 @@
 {% extends 'base/premium_page_container.html'%}
 {% block content %}
 {% if  request.user.subscribed == True and request.user.is_authenticated %}
+<div class="card mb-4">
+<div class="card-body">
     <!-- Title -->
     <h1 class="mt-4">{{singe_premium_post.title}}</h1>
   <p>{{singe_premium_post.created_on}}</p>
@@ -8,9 +10,10 @@
     <hr>
     <!-- Preview Image -->
     <img src="{{ MEDIA_URL }}{{singe_premium_post.image}}">
-    <hr>
     <!-- Post Content -->
     <p>{{singe_premium_post.content}}</p>
+</div>
+</div>
 {% else %}
 <div class="container">
 <h1>Premium Tips | Analysis </h1>

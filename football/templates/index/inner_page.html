@@ -1,5 +1,7 @@
 {% extends 'base/page_container.html'%}
 {% block content %}
+<div class="card mb-4">
+<div class="card-body">
     <!-- Title -->
     <h1 class="mt-4">{{singe_post.title}}</h1>
   <p>{{singe_post.created_on}}</p>
@@ -7,8 +9,8 @@
     <hr>
     <!-- Preview Image -->
     <img src="{{ MEDIA_URL }}{{singe_post.image}}">
-    <hr>
     <!-- Post Content -->
     <p>{{singe_post.content}}</p>
-        
+</div>
+</div>      
 {% endblock %}

@@ -2,8 +2,8 @@
 {% block content %}
 {% if  request.user.subscribed == True and request.user.is_authenticated %}
         <!-- Blog Post -->
-        <h4>{{single_league_category}}</h4>
-        
+         <h4 class="inner_page"> <i class="fas fa-futbol"></i> {{single_league_category}} </h4>
+        {% if premium_category_posts %}
         {% for premium_category_post in premium_category_posts %}
         <div class="card mb-4">
         
@@ -17,6 +17,19 @@
           </div>
         </div>
        {% endfor %}
+
+       {% else %}
+      <div class="card mb-4">
+          <div class="card-body">
+            <p>No results for selected category</p>
+          </div>
+          <div class="card-footer text-muted">
+          </div>
+      </div>
+        
+        {% endif %}
+        
+        
         
 
        <!-- Pagination -->
