@@ -1,0 +1,39 @@
+{% extends 'base/dashboard_container.html' %}
+{% block content %}
+ <div class="container-fluid">
+<br>
+                        <div class="card mb-4">
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>Leagues</div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>League Id</th>
+                                                <th>League</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                            <th>League Id</th>
+                                            <th>League</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                          {% for league in all_leagues %}
+                                            <tr>
+                                            <td>
+                                            <a href="{% url 'dashboard:edit_league' league.id %}">{{league.id}}</a>
+                                            </td>
+                                            <td>
+                                            {{league.league}}
+                                            </td>
+                                            </tr>
+                                           {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+{% endblock content %}
