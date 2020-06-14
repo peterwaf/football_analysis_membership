@@ -27,6 +27,17 @@
                                 <a class="nav-link" href="{% url 'dashboard:add_league' %}">Add League</a>
                             </div>
                             <!--   add league menu end -->
+
+                            <!--   users menu start -->
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts2" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i>
+                            </div>Site Users<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i>
+                            </div></a>
+                            <div class="collapse" id="collapseLayouts2" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{% url 'dashboard:all_users' %}">All Users</a>
+                            </div>
+                            <!--   users menu end -->
                         </div>
                         
                     </div>

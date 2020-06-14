@@ -7,6 +7,8 @@ from .forms import AddPosts
 from django.utils import timezone
 from league.models import Leaguetype
 from .forms import AddLeagues
+from .forms import editUsers
+from users.models import CustomUser
 
 #update unicode
 # Create your views here.
@@ -96,7 +98,41 @@ def editLeague(request,league_id):
     template = "dashboard/edit_league.html"
     return render(request,template,context)
 
+#users
 
+#show all users
+
+def allUsers(request):
+    all_users = CustomUser.objects.all()
+    template = "dashboard/all_users.html"
+    context = { 'all_users':all_users,
+    }
+    return render(request,template,context)
+
+#single user info
+
+def userInfo(request,user_id):
+    single_user = CustomUser.objects.get(pk=user_id)
+    template = "dashboard/user_info_dashboard.html"
+    context = { 'single_user':single_user,
+    }
+    return render(request,template,context)
+
+def editUser(request,user_id):
+    selected_user = get_object_or_404(CustomUser,pk=user_id)
+    form = editUsers(instance=selected_user)
+    #if form request method is post then load form instance object
+    if request.method == "POST":
+        form = editUsers(request.POST,instance=selected_user)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"User information updated successfully")
+            return render(request,"dashboard/success.html")
+        else:
+            form = editUsers(instance=selected_user)
+    template = "dashboard/edit_user.html"
+    context = {'form':form}
+    return render(request,template,context)
 
     
     

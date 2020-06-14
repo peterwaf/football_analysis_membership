@@ -1,0 +1,53 @@
+{% extends 'base/dashboard_container.html' %}
+{% block content %}
+ <div class="container-fluid">
+<br>
+                        <div class="card mb-4">
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>All Users</div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>User Id</th>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>Email </th>
+                                                <th>Subscription </th>
+                                                <th>Subscription Start </th>
+                                                <th>Subscription End </th>
+                                                <th>Full details </th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>User Id</th>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>Email </th>
+                                                <th>Subscription </th>
+                                                <th>Subscription Start </th>
+                                                <th>Subscription End </th>
+                                                <th>Full details</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                          {% for user in all_users %}
+                                            <tr>
+                                            <td><a href="#">{{user.id}}</a></td>
+                                            <td>{{user.first_name}}</td>
+                                            <td>{{user.last_name}}</td>
+                                           <td>{{user.email}}</td>
+                                           <td>{{user.subscribed}}</td>
+                                           <td>{{user.subscription_start}}</td>
+                                           <td>{{user.subscription_end}}</td>
+                                           <td> <a href="{% url 'dashboard:user_info' user.id %}">Full details </a></td>
+                                            </tr>
+                                           {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+{% endblock content %}

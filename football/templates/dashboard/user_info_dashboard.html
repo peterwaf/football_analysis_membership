@@ -1,0 +1,77 @@
+{% extends 'base/dashboard_container.html' %}
+{% block content %}
+ <div class="container-fluid">
+<br>
+                        <div class="card mb-4">
+                            <div class="card-header">User Information for user Id No. {{ single_user.id }} <a href="{% url 'dashboard:edit_user' single_user.id %}">Edit</a></div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" width="100%" cellspacing="0">
+                                        <tbody>
+                                            <tr>
+                                            <td>User Id </td><td> {{ single_user.id }} </td>
+                                            </tr>
+                                            <tr>
+                                            <td>User Name </td><td>
+                                            {% if  single_user.username %}
+                                            {{ single_user.username }} 
+                                            {% else %}
+                                            No Username
+                                            {% endif %}
+                                              </td>
+                                            </tr>
+                                            <tr><td>First Name </td>
+                                            <td>
+                                            {% if single_user.first_name %}
+                                            {{ single_user.first_name }} 
+                                            {% else %}
+                                            No First Name
+                                            {% endif %}
+                                            </td>
+                                            </tr>
+                                            <tr><td>Last Name </td> <td>
+                                            {% if single_user.last_name %}
+                                            {{ single_user.last_name }} 
+                                            {% else %}
+                                            No Last Name
+                                            {% endif %}
+                                            </td>
+                                            </tr>
+                                            <tr>
+                                            <td>Email</td>
+                                            <td>{{ single_user.email }} </td>
+                                            </tr>
+                                            <tr>
+                                            <tr>
+                                            <td>Mobile No.</td>
+                                            <td>{{ single_user.mobile_number }} </td>
+                                            </tr>
+                                            <tr>
+                                            <tr>
+                                            <td>Subscribed</td>
+                                            <td>{{ single_user.subscribed }} </td>
+                                            </tr>
+                                            <tr>
+                                            <td>Subscription Start</td>
+                                            <td>{{ single_user.subscription_start }} </td>
+                                            </tr>
+                                            <tr>
+                                            <td>Subscription End</td>
+                                            <td>{{ single_user.subscription_end }} </td>
+                                            </tr>
+                                            <tr>
+                                            <td>Date Joined</td>
+                                            <td>{{ single_user.date_joined }} </td>
+                                            </tr>
+                                            <tr>
+                                            <td>Is staff</td>
+                                            <td>{{ single_user.is_staff }} </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p><a href="{% url 'dashboard:all_users' %}" >Go Back</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+{% endblock content %}

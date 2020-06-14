@@ -11,11 +11,13 @@
                                             <tr>
                                                 <th>League Id</th>
                                                 <th>League</th>
+                                                <th>Edit</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
                                             <th>League Id</th>
+                                            <th>Edit</th>
                                             <th>League</th>
                                             </tr>
                                         </tfoot>
@@ -24,6 +26,9 @@
                                             <tr>
                                             <td>
                                             <a href="{% url 'dashboard:edit_league' league.id %}">{{league.id}}</a>
+                                            </td>
+                                            <td>
+                                            <a href="{% url 'dashboard:edit_league' league.id %}">Edit</a>
                                             </td>
                                             <td>
                                             {{league.league}}

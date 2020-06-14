@@ -10,6 +10,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Id</th>
+                                                <th>Edit</th>
                                                 <th>Title</th>
                                                 <th>Image</th>
                                                 <th>Slug</th>
@@ -22,7 +23,8 @@
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                               <th>Id</th>
+                                                <th>Id</th>
+                                                <th>Edit</th>
                                                 <th>Title</th>
                                                 <th>Image</th>
                                                 <th>Slug</th>
@@ -38,6 +40,7 @@
                                             <tr>
                                             
                                                 <td> <a href="{% url 'dashboard:edit_post' post.id %}">{{post.id}}</a></td>
+                                                <td><a href=" {% url 'dashboard:edit_post' post.id %}">Edit</a></td>
                                                 <td>{{post.title}}</td>
                                                 <td>{{post.image}}</td>
                                                 <td>{{post.slug}}</td>

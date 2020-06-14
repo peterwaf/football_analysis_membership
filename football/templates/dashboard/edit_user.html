@@ -1,0 +1,28 @@
+{% extends 'base/dashboard_container.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+ <div class="container-fluid">
+<br>
+                        <div class="card mb-4">
+                        <br>
+                            {% if messages %}
+                                <ul class="messages">
+                                    {% for message in messages %}
+                                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                                        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                                        {{ message }}
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                            <div class="card-header"><i class="fas fa-pen-alt"></i>Edit User</div>
+                            <div class="card-body">
+                                <form method="POST" class="post-form">
+                                {% csrf_token %}
+                                    {{ form|crispy }}
+                                    <button class="btn btn-success">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+{% endblock content %}
