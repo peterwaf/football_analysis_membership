@@ -28,5 +28,7 @@ urlpatterns = [
     path('all_users',views.allUsers,name='all_users'),
     path('user_info/<int:user_id>/',views.userInfo,name='user_info'),
     path('idit_user/<int:user_id>/',views.editUser,name='edit_user'),
+    path('payments/',views.customerPayments,name='payments'),
+    path('m-pesa/',views.mpesaData,name='mpesa'),
 
 ]

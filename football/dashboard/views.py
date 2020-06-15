@@ -9,6 +9,8 @@ from league.models import Leaguetype
 from .forms import AddLeagues
 from .forms import editUsers
 from users.models import CustomUser
+from payments.models import Payments
+from M_PESA.models import Mpesa
 
 #update unicode
 # Create your views here.
@@ -132,6 +134,18 @@ def editUser(request,user_id):
             form = editUsers(instance=selected_user)
     template = "dashboard/edit_user.html"
     context = {'form':form}
+    return render(request,template,context)
+
+def customerPayments(request):
+    all_payments = Payments.objects.all()
+    template = "dashboard/payments.html"
+    context = {'all_payments':all_payments}
+    return render(request,template,context)
+
+def mpesaData(request):
+    mpesa_payments = Mpesa.objects.all()
+    template = "dashboard/mpesa.html"
+    context = {'mpesa_payments':mpesa_payments}
     return render(request,template,context)
 
     
