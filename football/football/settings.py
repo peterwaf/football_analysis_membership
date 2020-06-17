@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'M_PESA',
     'dashboard',
     'crispy_forms',
+    'tinymce',
 ]
 
 #load crispy forms bootstrap
@@ -84,8 +85,6 @@ TEMPLATES = [
         },
     },
 ]
-
-WSGI_APPLICATION = 'football.wsgi.application'
 
 
 # Database

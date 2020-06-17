@@ -27,6 +27,7 @@ urlpatterns = [
     path('',include('M_PESA.urls')),
     path('',include('content.urls')),
     path('',include('dashboard.urls')),
+    path('tinymce/', include('tinymce.urls')),
 
 ]
 

@@ -1,6 +1,8 @@
 from django.db import models
+from tinymce.models import HTMLField
 from users.models import CustomUser
 from league.models import Leaguetype
+
 # Create your models here.
 STATUS = (
         (0,"Draft"),
@@ -18,7 +20,7 @@ class Post(models.Model):
     slug = models.SlugField(max_length=200, unique=True)
     author = models.ForeignKey(CustomUser,on_delete=models.CASCADE, related_name='blog_posts')
     created_on = models.DateTimeField(auto_now=True)
-    content = models.TextField()
+    content = HTMLField()
     status = models.IntegerField(choices=STATUS, default=0)
     content_type = models.IntegerField(choices=CONTENT_TYPE,default=0)
     league = models.ForeignKey(Leaguetype,null=False,on_delete=models.CASCADE)
