@@ -37,7 +37,10 @@ def userLogin(request):
         user = authenticate(email=email,password=password)
         if user is not None:
             login(request,user)
+            if request.user.is_staff:
+                return redirect('dashboard:dashboard')
             return redirect('index:home')
+            
         else:
             messages.info(request,'Invalid Email or Password,try gain')
             

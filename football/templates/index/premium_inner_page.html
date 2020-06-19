@@ -11,7 +11,7 @@
     <!-- Preview Image -->
     <img src="{{ MEDIA_URL }}{{singe_premium_post.image}}">
     <!-- Post Content -->
-    <p>{{singe_premium_post.content}}</p>
+    <p>{{singe_premium_post.content|safe}}</p>
 </div>
 </div>
 {% else %}
@@ -21,7 +21,7 @@
                 <h4>Content Available to subscribed users only</h4>
                 <p> Dear Customer,this content  is visible to subscribed users only. To access sure premium tips/analysis,
                     please register and subscribe. If you are already registered,
-                    please click <a href="#">here to subscribe</a></p>
+                    please click <a href="{% url 'subscriptions:subscribe' %}">here to subscribe</a></p>
             </div>
 </div>
 {% endif %}

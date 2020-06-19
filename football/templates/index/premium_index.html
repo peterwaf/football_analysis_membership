@@ -8,7 +8,7 @@
 		      <img src="{{ MEDIA_URL }}{{premium_post.image}}" alt="No image">
           <div class="card-body">
             <h2 class="card-title">{{premium_post.title}}</h2>
-            <p class="card-text">{{premium_post.content | slice:":400"}}</p>
+            <p class="card-text">{{premium_post.content | slice:":400"|safe}}</p>
             <a href="{% url 'index:premium_post_detail' premium_post.slug %}" class="btn btn-primary">Read More &rarr;</a>
           </div>
           <div class="card-footer text-muted">

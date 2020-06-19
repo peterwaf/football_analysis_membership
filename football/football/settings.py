@@ -50,6 +50,9 @@ INSTALLED_APPS = [
     'tinymce',
 ]
 
+
+
+
 #load crispy forms bootstrap
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 

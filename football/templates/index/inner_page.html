@@ -10,7 +10,7 @@
     <!-- Preview Image -->
     <img src="{{ MEDIA_URL }}{{singe_post.image}}">
     <!-- Post Content -->
-    <p>{{singe_post.content}}</p>
+    <p>{{singe_post.content|safe}}</p>
 </div>
 </div>      
 {% endblock %}
