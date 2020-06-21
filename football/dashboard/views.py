@@ -159,6 +159,15 @@ def subscriptionsData(request):
 def editSubscriptions(request,subscription_id):
     selected_subscription = Subscription.objects.get(pk=subscription_id)
     form = SubscriptionsForm(instance=selected_subscription)
+    if request.method == "POST":
+        form = SubscriptionsForm(request.POST,instance=selected_subscription)
+        if form.is_valid():
+            subscription_data = form
+            subscription_data.save()
+            messages.success(request,"Subscription updated successfully")
+            return render(request,"dashboard/success.html")
+        else:
+            form = SubscriptionsForm(instance=selected_subscription)
     template = "dashboard/edit_subscriptions.html"
     context = {'form':form}
     return render(request,template,context)
