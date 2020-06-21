@@ -7,18 +7,19 @@
                             <div class="sb-sidenav-menu-heading">Menus</div>
                             <!--   add content menu start -->
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i>
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-reader"></i>
                             </div>Content<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i>
                             </div></a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="{% url 'dashboard:add' %}">Add Content</a>
+                                <a class="nav-link" href="{% url 'dashboard:dashboard' %}">All Posts</a>
+                                <a class="nav-link" href="{% url 'dashboard:add' %}">Add Post</a>
                             </div>
                              <!--   add content menu end -->
 
                              <!--   add league menu start -->
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts1" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i>
+                            <div class="sb-nav-link-icon"><i class="fas fa-futbol"></i>
                             </div>Leagues<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i>
                             </div></a>
                             <div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
@@ -30,7 +31,7 @@
 
                             <!--   users menu start -->
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts2" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i>
+                            <div class="sb-nav-link-icon"><i class="fas fa-user-friends"></i>
                             </div>Site Users<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i>
                             </div></a>
                             <div class="collapse" id="collapseLayouts2" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
@@ -39,9 +40,9 @@
                             </div>
                             <!--   users menu end -->
 
-                            <!--   users menu start -->
+                            <!--   m-pesa menu start -->
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts3" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i>
+                            <div class="sb-nav-link-icon"><i class="far fa-money-bill-alt"></i>
                             </div>Customer Payments<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i>
                             </div></a>
                             <div class="collapse" id="collapseLayouts3" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
@@ -49,7 +50,18 @@
                                 <a class="nav-link" href="{% url 'dashboard:mpesa' %}">M-PESA</a>
                                 <a class="nav-link" href="{% url 'dashboard:payments' %}">Payments</a>
                             </div>
-                            <!--   users menu end -->
+                            <!--   m-pesa menu end -->
+
+                            <!--   subscriptions menu start -->
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts4" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-satellite-dish"></i>
+                            </div>Subscriptions<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i>
+                            </div></a>
+                            <div class="collapse" id="collapseLayouts4" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{% url 'dashboard:subscriptions' %}">Manage Subscriptions</a>
+                            </div>
+                            <!--   subscriptions menu end -->
                         </div>
                         
                     </div>

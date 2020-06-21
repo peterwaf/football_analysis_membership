@@ -3,6 +3,7 @@ from django import forms
 from content.models import Post
 from league.models import Leaguetype
 from users.models import CustomUser
+from subscriptions.models import Subscription
 #post form model
 class AddPosts(ModelForm):
     class Meta:
@@ -14,6 +15,11 @@ class AddLeagues(ModelForm):
     class Meta:
         model = Leaguetype
         fields = ('league',)
+
+class SubscriptionsForm(ModelForm):
+    class Meta:
+        model = Subscription
+        fields = '__all__'
 
 #user form model
 class editUsers(ModelForm):

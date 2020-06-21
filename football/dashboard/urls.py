@@ -30,5 +30,7 @@ urlpatterns = [
     path('idit_user/<int:user_id>/',views.editUser,name='edit_user'),
     path('payments/',views.customerPayments,name='payments'),
     path('m-pesa/',views.mpesaData,name='mpesa'),
+    path('subscriptions/',views.subscriptionsData,name='subscriptions'),
+    path('edit_subscription/<int:subscription_id>/',views.editSubscriptions,name='edit_subscription'),
 
 ]

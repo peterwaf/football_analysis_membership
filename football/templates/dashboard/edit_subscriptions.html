@@ -14,14 +14,13 @@
                                     {% endfor %}
                                 </ul>
                             {% endif %}
-                            <div class="card-header"><i class="fas fa-book-reader"></i> &nbsp;Add Post</div>
+                            <div class="card-header"><i class="fas fa-pen-alt"></i> &nbsp;Edit Subscriptions</div>
                             <div class="card-body">
                                 <form method="POST" class="post-form">
                                 {% csrf_token %}
                                     {{ form|crispy }}
                                     <button class="btn btn-success">Submit</button>
                                 </form>
-
                             </div>
                         </div>
                     </div>

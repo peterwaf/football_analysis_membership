@@ -3,35 +3,45 @@
  <div class="container-fluid">
 <br>
                         <div class="card mb-4">
-                            <div class="card-header"><i class="fas fa-futbol"></i> &nbsp;All Leagues</div>
+                            <div class="card-header"><i class="fas fa-satellite-dish"></i> &nbsp;Subscriptions</div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>League Id</th>
-                                                <th>League</th>
-                                                <th>Edit</th>
+                                                <th>Id</th>
+                                                 <th>Edit</th>
+                                                 <th>Subscription Type</th>
+                                                <th>Amount</th>
+                                                <th>Currency</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                            <th>League Id</th>
-                                            <th>Edit</th>
-                                            <th>League</th>
+                                              <th>Id</th>
+                                              <th>Edit</th>
+                                              <th>Subscription Type</th>
+                                              <th>Amount</th>
+                                              <th>Currency</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
-                                          {% for league in all_leagues %}
+                                          {% for subscription in all_subsriptions %}
                                             <tr>
                                             <td>
-                                            <a href="{% url 'dashboard:edit_league' league.id %}">{{league.id}}</a>
+                                            <a href="{% url 'dashboard:edit_subscription' subscription.id %}">{{subscription.id}}</a>
                                             </td>
                                             <td>
-                                            <a href="{% url 'dashboard:edit_league' league.id %}">Edit</a>
+                                            <a href="{% url 'dashboard:edit_subscription' subscription.id %}">Edit</a>
                                             </td>
                                             <td>
-                                            {{league.league}}
+                                            {{subscription.subscription_type}}
+                                            </td>
+                                             <td>
+                                            {{subscription.amount}}
+                                            </td>
+                                            <td>
+                                            {{subscription.currency}}
                                             </td>
                                             </tr>
                                            {% endfor %}

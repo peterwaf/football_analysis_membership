@@ -8,9 +8,11 @@ from django.utils import timezone
 from league.models import Leaguetype
 from .forms import AddLeagues
 from .forms import editUsers
+from .forms import SubscriptionsForm
 from users.models import CustomUser
 from payments.models import Payments
 from M_PESA.models import Mpesa
+from subscriptions.models import Subscription
 
 #update unicode
 # Create your views here.
@@ -51,7 +53,7 @@ def editPost(request,pk):
     else:
         form = AddPosts(instance=post)
     context = {'form':form}
-    return render(request,"dashboard/add_posts.html",context)
+    return render(request,"dashboard/edit_posts.html",context)
 
 #leagues
 
@@ -146,6 +148,19 @@ def mpesaData(request):
     mpesa_payments = Mpesa.objects.all()
     template = "dashboard/mpesa.html"
     context = {'mpesa_payments':mpesa_payments}
+    return render(request,template,context)
+
+def subscriptionsData(request):
+    all_subsriptions = Subscription.objects.all()
+    template = "dashboard/subscriptions.html"
+    context = {'all_subsriptions':all_subsriptions}
+    return render(request,template,context)
+
+def editSubscriptions(request,subscription_id):
+    selected_subscription = Subscription.objects.get(pk=subscription_id)
+    form = SubscriptionsForm(instance=selected_subscription)
+    template = "dashboard/edit_subscriptions.html"
+    context = {'form':form}
     return render(request,template,context)
 
     

@@ -4,7 +4,6 @@
  <div class="container-fluid">
 <br>
                         <div class="card mb-4">
-                        <br>
                             {% if messages %}
                                 <ul class="messages">
                                     {% for message in messages %}
@@ -15,7 +14,7 @@
                                     {% endfor %}
                                 </ul>
                             {% endif %}
-                            <div class="card-header"><i class="fas fa-pen-alt"></i>Add League</div>
+                            <div class="card-header"><i class="fas fa-futbol"></i> &nbsp;Add League</div>
                             <div class="card-body">
                                 <form method="POST" class="post-form">
                                 {% csrf_token %}

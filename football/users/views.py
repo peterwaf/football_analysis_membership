@@ -29,11 +29,10 @@ def userRegistration(request):
     return render(request,"users/register.html",context)
 
 def userLogin(request):
-
     if request.method == "POST":
         form = request.POST
-        email = request.POST.get('email')
-        password = request.POST.get('password')
+        email = form['email']
+        password = form['password']
         user = authenticate(email=email,password=password)
         if user is not None:
             login(request,user)
@@ -56,6 +55,5 @@ def Logout(request):
 #profile
 
 def profile(request):
-    context = {}
-    return render(request,"users/profile.html",context)
+    return render(request,"users/profile.html")
     
