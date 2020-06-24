@@ -31,7 +31,7 @@
                     </tbody>
                     </table>
                     <div class="px-2">
-                        <form action=" {% url 'subscriptions:subscribe' %}" class="justify-content-center bg-c-lite-subscribe" method="post">
+                        <form action=" {% url 'subscriptions:subscribe' %}" class="justify-content-center bg-c-lite-subscribe" method="POST">
                         {% csrf_token %}
                         <label for="subscription"> <h4>Select Plan</h4></label>
                             <h3 class="display-4 py-2 text-truncate">

@@ -144,6 +144,7 @@ def subscribe(request):
     context = {'subscriptions':subscriptions}
     return render(request,"subscriptions/subscribeform.html",context)
 
+
 @csrf_exempt
 def callback(request):
     json_data = json.loads(request.body)
@@ -176,3 +177,5 @@ def callback(request):
         'status': 'ok'
     }
     return JsonResponse(data)
+
+
