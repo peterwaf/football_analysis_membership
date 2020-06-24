@@ -226,7 +226,7 @@ def premiumdetailedView(request,slug):
 
 def premiumcategorycontentView(request,league_id):
     #filter only paid content, content_type = 1 and league id
-    premium_category_posts = Post.objects.filter(status=1,content_type=1,pk=league_id).order_by('-created_on')
+    premium_category_posts = Post.objects.filter(status=1,content_type=1,league=league_id).order_by('-created_on')
     premium_posts = Post.objects.filter(status=1,content_type=1).order_by('-created_on')
     league_lists = Leaguetype.objects.all()
     #initialise a single variable for each league category
@@ -250,7 +250,7 @@ def premiumcategorycontentView(request,league_id):
         paginator = Paginator(premium_posts,3)
         page = request.GET.get('page')
         premium_posts = paginator.get_page(page)
-        context = {'premium_posts':premium_posts,'items':premium_posts,'league_lists':league_lists}
+        context = {'premium_posts':premium_posts,'items':premium_posts,'league_lists':league_lists,'premium_category_posts':premium_category_posts,}
         return render(request,"index/premium_index.html",context)
 
     elif queryfree:

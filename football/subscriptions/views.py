@@ -32,7 +32,7 @@ def lipa_na_mpesa_online(request,phone_number,amount):
         "PartyA": phone_number,  # replace with customer phone number to get stk push
         "PartyB": LipanaMpesaPpassword.Business_short_code,
         "PhoneNumber": phone_number,  # replace with customer phone number to get stk push
-        "CallBackURL": "http://00e6b70d.ngrok.io/callback/", #already defined under urls,replace in production
+        "CallBackURL": "https://fe2d314d8f65.ngrok.io/callback/", #already defined under urls,replace in production
         "AccountReference": phone_number,
         "TransactionDesc": "Testing stk push"
     }
@@ -122,7 +122,7 @@ def subscribe(request):
         payments_data.validation = False
         payments_data.save()
         #wait for 15 seconds for client to pay
-        time.sleep(10)
+        time.sleep(15)
         # validate then save payment info from safaricom in M_PESA DB
         try:
             #if merchand id from safaricom is equal to request merchant id and result code is 0 (ok)
