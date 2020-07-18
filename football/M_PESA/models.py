@@ -7,6 +7,7 @@ class Mpesa(models.Model):
     result_code = models.CharField(max_length=10)
     merchant_id = models.CharField(max_length=150)
     amount = models.FloatField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = 'tbl_mpesa'

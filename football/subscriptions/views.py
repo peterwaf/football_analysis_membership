@@ -6,7 +6,7 @@ from payments.models import Payments
 #relative datetime installed from pip install django-relativedelta
 from dateutil.relativedelta import relativedelta
 #import python's datetime
-from datetime import date,datetime
+from datetime import date, datetime, timedelta
 #import custom user model
 from users.models import CustomUser
 import requests
@@ -18,6 +18,8 @@ from requests.auth import HTTPBasicAuth #HTTPBasicAuth from requests for authent
 from . mpesa_credentials import MpesaAccessToken, LipanaMpesaPpassword
 from M_PESA.models import Mpesa
 import time
+from django.db.models import Q
+
 # Create your views here.
 def lipa_na_mpesa_online(request,phone_number,amount):
     access_token = MpesaAccessToken.validated_mpesa_access_token
@@ -39,9 +41,25 @@ def lipa_na_mpesa_online(request,phone_number,amount):
     response = requests.post(api_url, json=request, headers=headers)
     json_data = json.loads(response.text)
     print('RESPONSE : ',json_data)
-    merchant_request_id = json_data['MerchantRequestID']
-    print('MERCHANT REQUEST ID :',merchant_request_id)
-    return merchant_request_id
+
+    if json_data.get('errorCode'): # check if we have and error from safcom
+        """check if we have and error from safcom
+
+        [DEV NOTES]: When getting an item from a dict use the 'json_data.get()' method instead of json_data[]
+            as used in lines 45 and 59.
+            This is prefred especially when the contents of the dict can change.
+            Using .get() will not throw 'list out of index' errors.
+        """
+        return {
+            'error': True,
+            'errorCode': json_data.get('errorCode'),
+            'errorMessage': json_data.get('errorMessage'),
+        }
+
+    return {
+        'error': False,
+        'merchant_request_id': json_data.get('MerchantRequestID')
+    }
 
 
 
@@ -55,8 +73,62 @@ def getAccessToken(request):
     return HttpResponse(validated_mpesa_access_token)
 
 def subscription_success(request):
-    context = {}
-    return render(request,"subscriptions/subscription_success.html",context)
+    return render(request,"subscriptions/subscription_success.html")
+
+def subscription_confirmation(request):
+    """Renders a confirmation template
+    This method checks if Safcom made a call to our callback.
+    It check the merchant_id in the MPESA table
+    """
+    error_message = "Confirmation Error. Please click 'Confirm Payment' once again after few secconds or forward your MPESA message to 0722412767"
+    if request.method == "POST":
+        form = request.POST
+        merchant_id = form.get('merchant_id')
+        current_user = request.user
+
+        if merchant_id:
+            """This merchant_id is passed to template as context in line 92, 100, and 187.
+            We query Mpesa table using the merchant_id and the last payment with the same merchant_id
+            """
+            mpesa_transaction = Mpesa.objects.filter(Q(merchant_id=merchant_id)&Q(result_code=0))
+            payment = Payments.objects.filter(Q(merchantId=merchant_id)).last()
+        else:
+            """In case the merchant_id is not in the form. This is just a fallback incase the user decides to refresh the page
+                or something that might cause the form to lose the merchant_id.
+            1. We query the last payment this user made because we don't have the merchant_id. [Line 97]
+            2. If we don't have records of this users' payment we show them an error msg [Line 99-102]
+            3. If we have a record of payment we the proceed to query Mpesa table for payments that happened in the last 10 min. [Line 104-105]
+                - Querying the last 10 min to avoid fetching payment user made a week ago or sometime in the past. (We can increase or reduce this time)
+            4. Again if we don't have records of this users' payment we show them an error msg. [Line 107]
+            5. Finally update Payments and user table and redirect to success page [Line 113-122]
+            """
+            payment = Payments.objects.filter(Q(user_id=current_user)).last()
+
+            if not payment:
+                messages.error(request, error_message)
+                ctx = {'merchant_id': merchant_id}
+                return render(request,"subscriptions/subscription_confirmation.html", ctx)
+
+            ten_min_ago = datetime.now()-timedelta(minutes=10)
+            mpesa_transaction = Mpesa.objects.filter(phone_number=payment.phone_number).filter(Q(created_at__gte=ten_min_ago)&Q(result_code=0))
+
+        if not mpesa_transaction:
+            messages.error(request, error_message)
+            ctx = {'merchant_id': merchant_id}
+            return render(request,"subscriptions/subscription_confirmation.html", ctx)
+
+        payment.validation = True
+        payment.save()
+
+        start_date, end_date = get_subscription_period(payment.subscription.subscription_type)
+        current_user.subscribed = True
+        current_user.subscription_start = start_date
+        current_user.subscription_end = end_date
+        current_user.save()
+
+        return redirect('subscriptions:success')
+
+    return render(request, "subscriptions/subscription_confirmation.html")
 
 """
 def format_phone_number(request,phone_number):
@@ -109,7 +181,14 @@ def subscribe(request):
         else:
             amount += 0
         #grab payments table and update with new values
-        merchant_request_id = lipa_na_mpesa_online(request,phone_number,amount)
+        payment_request_response = lipa_na_mpesa_online(request,phone_number,amount)
+
+        if payment_request_response['error']: # Handles when there was an error from safcom while making request
+            messages.error(request, payment_request_response['errorMessage']) # TODO don't return error msg from safcom. Make the error msg more user friendly
+            return redirect('subscriptions:subscribe')
+
+        merchant_request_id = payment_request_response['merchant_request_id']
+
         #not sure how to validate if payment is made
         payments_data = Payments()
         payments_data.user = user
@@ -121,25 +200,9 @@ def subscribe(request):
         payments_data.phone_number = phone_number
         payments_data.validation = False
         payments_data.save()
-        #wait for 15 seconds for client to pay
-        time.sleep(15)
-        # validate then save payment info from safaricom in M_PESA DB
-        try:
-            #if merchand id from safaricom is equal to request merchant id and result code is 0 (ok)
-            mpesa_item = Mpesa.objects.get(merchant_id=merchant_request_id,result_code=0)
-            #validate the payment
-            payments_data.validation = True
-            payments_data.save()
-            #change subscription of the user to True and start date-> end date
-            user.subscribed = True
-            user.subscription_start = start_date
-            user.subscription_end = end_date
-            user.save()
-            return redirect('subscriptions:success')
-        #raise error to the user if transaction is not validated
-        except ObjectDoesNotExist as ex:
-            messages.error(request,"Confirmation Error.Please foward your payment sms to 0722412767")
-            return redirect('subscriptions:subscribe')
+
+        ctx = {'merchant_id': merchant_request_id}
+        return render(request, "subscriptions/subscription_confirmation.html", ctx)
 
     context = {'subscriptions':subscriptions}
     return render(request,"subscriptions/subscribeform.html",context)
@@ -178,4 +241,15 @@ def callback(request):
     }
     return JsonResponse(data)
 
-
+def get_subscription_period(subscription_type):
+    """Generates start and end date of subscription
+    """
+    start_date = datetime.now()
+    end_date = None
+    if subscription_type == "W":
+        end_date = start_date + relativedelta(weeks=1)
+    elif subscription_type == "M":
+        end_date = start_date + relativedelta(months=1)
+    elif subscription_type == "A":
+        end_date = start_date + relativedelta(years=1)
+    return start_date, end_date
