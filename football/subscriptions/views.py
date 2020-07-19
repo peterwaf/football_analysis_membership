@@ -34,7 +34,7 @@ def lipa_na_mpesa_online(request,phone_number,amount):
         "PartyA": phone_number,  # replace with customer phone number to get stk push
         "PartyB": LipanaMpesaPpassword.Business_short_code,
         "PhoneNumber": phone_number,  # replace with customer phone number to get stk push
-        "CallBackURL": "http://5375c5640e41.ngrok.io/callback/", #already defined under urls,replace in production
+        "CallBackURL": "https://8b72f2d8f6cc.ngrok.io/callback/", #already defined under urls,replace in production
         "AccountReference": phone_number,
         "TransactionDesc": "Testing stk push"
     }
@@ -80,7 +80,7 @@ def subscription_confirmation(request):
     This method checks if Safcom made a call to our callback.
     It check the merchant_id in the MPESA table
     """
-    error_message = "Confirmation Error. Please click 'Confirm Payment' once again after few secconds or forward your MPESA message to 0722412676"
+    error_message = "Confirmation Error. Please click 'Confirm Payment' once again after few seconds or forward your MPESA message to 0722412676"
     if request.method == "POST":
         form = request.POST
         merchant_id = form.get('merchant_id')
