@@ -10,9 +10,10 @@ from users.models import CustomUser
 from django.core.mail import send_mail
 #import messages for forms
 from django.contrib import messages
-# Create your views here.
-
+#import date time
+from datetime import date, datetime, timedelta
 #default views for free content
+from django.contrib.auth import authenticate,login,logout
 
 def contentView(request):
     #filter only free content, content_type = 0
@@ -144,6 +145,28 @@ def categorycontentView(request,league_id):
 #default views for premium content with own templates
 
 def premiumcontentView(request):
+    #get the current user info from clicked session
+    current_user = request.user
+    if request.user.is_authenticated and current_user.subscription_end is None:
+        return redirect('subscriptions:subscribe')
+        #get the subscription end date of the current user
+        current_user_subscription_end_date = current_user.subscription_end.date()
+        #format the date variable
+        date_format = "%Y-%m-%d"
+        today = datetime.strptime(str(datetime.now().date()),date_format)
+        #get the end date of the subscription of the user
+        time_end_date = datetime.strptime(str(current_user_subscription_end_date),date_format)
+        #get a difference
+        time_diff = time_end_date - today
+        #get the days only
+        time_diff_days = time_diff.days
+        #if the days are less than 1,then unsubscribe the user,set subscription dates to null and redirect them back to the page
+        if time_diff_days < 1:
+            current_user.subscribed = False
+            current_user.subscription_start = None
+            current_user.subscription_end = None
+            current_user.save()
+            return redirect('index:premium_tips')
     #filter only paid content, content_type = 1
     premium_posts = Post.objects.filter(status=1,content_type=1).order_by('-created_on')
     league_lists = Leaguetype.objects.all()
