@@ -38,6 +38,8 @@ def userLogin(request):
             login(request,user)
             if request.user.is_staff:
                 return redirect('dashboard:dashboard')
+            elif request.user.subscribed == False:
+                return redirect('subscriptions:subscribe')
             return redirect('index:home')
             
         else:

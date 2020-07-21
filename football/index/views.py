@@ -148,7 +148,8 @@ def premiumcontentView(request):
     #get the current user info from clicked session
     current_user = request.user
     if request.user.is_authenticated and current_user.subscription_end is None:
-        return redirect('subscriptions:subscribe')
+        return render(request,"index/premium_index.html")
+    elif request.user.is_authenticated:
         #get the subscription end date of the current user
         current_user_subscription_end_date = current_user.subscription_end.date()
         #format the date variable
