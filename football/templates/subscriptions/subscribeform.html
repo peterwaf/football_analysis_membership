@@ -1,4 +1,5 @@
 {% extends 'base/basic_container.html'%}
+{% load static %}
 {% block content %}
 {% if  request.user.is_authenticated %}
 <div class="row text-white custom-bg">
@@ -31,6 +32,7 @@
                     </tbody>
                     </table>
                     <div class="px-2">
+                      <div><img alt="" src="{% static 'images/mpesa_small.png' %}"></div>
                         <form action=" {% url 'subscriptions:subscribe' %}" class="justify-content-center bg-c-lite-subscribe" method="POST">
                         {% csrf_token %}
                         <label for="subscription"> <h4>Select Plan</h4></label>
@@ -128,7 +130,8 @@
               <!--space holder-->
               </div>
               </div>
-
+              <div class="row">
+              </div>
               <div class="row">
               </div>
 
