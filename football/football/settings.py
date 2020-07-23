@@ -24,7 +24,7 @@ SECRET_KEY = '*n*v*nz)(jh3meq$-tzsv#x%(a)#tv6v@%e$jy8==8zh@pcu3)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = ['e2c6f25c6f4e.ngrok.io','127.0.0.1']
+ALLOWED_HOSTS = ['cd1d7efa2262.ngrok.io','127.0.0.1']
 
 
 # Application definition
@@ -142,7 +142,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 #points the location of the static folder
-STATIC_ROOT = os.path.join(BASE_DIR,'static')
+STATIC_ROOT = os.path.join(BASE_DIR,'/static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'football/static')]
 MEDIA_ROOT = os.path.join('media')

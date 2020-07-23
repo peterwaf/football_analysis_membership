@@ -283,10 +283,9 @@ h6 {
     background-color: #fff;
     border-radius: 3px;
 }
-.alert-message-success
-{
-    background-color: #F4FDF0;
-    border-color: #3C763D;
+.alert-message-success {
+    background-color: #f06817;
+    border-color: #518825;
 }
 .alert-message-success h4
 {
@@ -297,10 +296,10 @@ h6 {
     background-color: #fdf7f7;
     border-color: #d9534f;
 }
-.alert-message-danger h4
-{
-    color: #d9534f;
+.alert-message-success h4 {
+    color: #000;
 }
+.alert-message-success a {color:#fff;}
 .alert-message-warning
 {
     background-color: #fcf8f2;
@@ -411,8 +410,8 @@ form:before {
     top: 0;
     width: 100%;
     z-index: -1;
-    border:1px dotted grey;
     background-color: #fff;
+    border:none !important
 }
 
 .bg-c-lite-subscribe {

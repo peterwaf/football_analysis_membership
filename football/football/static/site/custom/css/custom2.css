@@ -1,0 +1,34 @@
+/** sidebar styling ***/
+.card-body ul.list-unstyled li a{
+    color:black;
+}
+.card-body ul.list-unstyled li a:hover{border-bottom:1px solid#fff;}
+.btn-primary {
+    color: #000;
+    background-color: #f06817;
+    border-color: #f06817;
+}
+/**hover**/
+.btn-primary:hover {
+    color: #fff;
+    background-color: #070707;
+    border-color: #f06817;
+}
+form:before {
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+    background-color: #fff;
+    border:none !important
+}
+.cards {background: -webkit-gradient(linear, left top, right top, from(#f06817), to(#518825));
+    background: linear-gradient(to right, #ee5a6f, #518825);}
+.pagination a,span{color:#000;}
+.table-dark a {color:#f06817}
+span.white{color:#f06817;}
+
+

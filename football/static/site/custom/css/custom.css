@@ -411,7 +411,6 @@ form:before {
     top: 0;
     width: 100%;
     z-index: -1;
-    border:1px dotted grey;
     background-color: #fff;
 }
 
@@ -479,16 +478,30 @@ div.contact-icon{
     border: none;
     cursor: pointer;
 }
-
 .sent{
     padding-top:10px;
     color:000;
 }
-
-p.btn-alert{color: green;}
+p.btn-alert{color: green;
+}
 h4.inner_page{
     margin-left: 10px;
     color:#000;
     padding:2px;
 
+}
+/** sidebar styling ***/
+.card-body ul.list-unstyled a{
+    color:black;
+}
+.btn-primary {
+    color: #f06817;
+    background-color: #070707;
+    border-color: #f06817;
+}
+/**hover**/
+.btn-primary:hover {
+    color: #fff;
+    background-color: #070707;
+    border-color: #f06817;
 }

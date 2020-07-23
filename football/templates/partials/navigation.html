@@ -28,7 +28,7 @@
           </li>
           {% if request.user.is_staff %}
           <li >
-            <a class="nav-link btn btn btn-secondary" href="{% url 'dashboard:dashboard' %}">Dashboard</a>
+            <a class="nav-link btn btn btn-secondary" href="{% url 'dashboard:dashboard' %}"><span class="white">Dashboard</span></a>
           </li>
           {% else %}
           <span>&nbsp;</span>
@@ -37,12 +37,12 @@
           &nbsp;
           {% if request.user.is_authenticated %}
           <li >
-            <a class="nav-link btn btn btn-secondary" href="{% url 'users:profile' %}">My Profile</a>
+            <a class="nav-link btn btn-dark" href="{% url 'users:profile' %}"><span class="white">My Profile</span></a>
           </li>
           &nbsp;
           &nbsp;
           <li >
-            <a class="nav-link btn btn btn-secondary" href="{% url 'users:logout' %}">Logout</a>
+            <a class="nav-link btn btn-dark" href="{% url 'users:logout' %}"><span class="white">Logout</span></a>
           </li>
           {% else %}
           <li >
