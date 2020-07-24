@@ -30,5 +30,8 @@ form:before {
 .pagination a,span{color:#000;}
 .table-dark a {color:#f06817}
 span.white{color:#f06817;}
-
+#layoutSidenav_nav .fa, .fas , .far{
+    color:#f06817;
+}
+#dataTable a{color:#000;}
 
