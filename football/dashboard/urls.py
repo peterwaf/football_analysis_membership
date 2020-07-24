@@ -25,6 +25,7 @@ urlpatterns = [
     path('edit_post/<int:pk>/',views.editPost,name="edit_post"),
     path('all_leagues',views.allLeagues,name="all_leagues"),
     path('add_league',views.addLeague,name='add_league'),
+    path('delete_league/<int:pk>/',views.deleteLeague,name='delete_league'),
     path('edit_league/<int:league_id>/',views.editLeague,name='edit_league'),
     path('all_users',views.allUsers,name='all_users'),
     path('user_info/<int:user_id>/',views.userInfo,name='user_info'),

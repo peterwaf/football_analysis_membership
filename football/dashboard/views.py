@@ -109,6 +109,14 @@ def editLeague(request,league_id):
     template = "dashboard/edit_league.html"
     return render(request,template,context)
 
+#delete league
+
+def deleteLeague(request,pk):
+    current_League = Leaguetype.objects.get(pk=pk)
+    current_League.delete()
+    messages.success(request,"League deleted successfully")
+    return render(request,"dashboard/success.html")
+
 #users
 
 #show all users
