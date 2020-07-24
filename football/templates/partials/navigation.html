@@ -28,7 +28,7 @@
           </li>
           {% if request.user.is_staff %}
           <li >
-            <a class="nav-link btn btn btn-secondary" href="{% url 'dashboard:dashboard' %}"><span class="white">Dashboard</span></a>
+            <a class="nav-link btn btn btn-dark" href="{% url 'dashboard:dashboard' %}"><span class="white">Dashboard</span></a>
           </li>
           {% else %}
           <span>&nbsp;</span>

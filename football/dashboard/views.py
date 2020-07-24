@@ -55,6 +55,13 @@ def editPost(request,pk):
     context = {'form':form}
     return render(request,"dashboard/edit_posts.html",context)
 
+#delete post
+def deletePost(request,pk):
+    current_post = Post.objects.get(pk=pk)
+    current_post.delete()
+    messages.success(request,"Post deleted successfully")
+    return render(request,"dashboard/success.html")
+
 #leagues
 
 def allLeagues(request):
