@@ -34,7 +34,7 @@ def lipa_na_mpesa_online(request,phone_number,amount):
         "PartyA": phone_number,  # replace with customer phone number to get stk push
         "PartyB": LipanaMpesaPpassword.Business_short_code,
         "PhoneNumber": phone_number,  # replace with customer phone number to get stk push
-        "CallBackURL": "http://cd1d7efa2262.ngrok.io/callback/", #already defined under urls,replace in production
+        "CallBackURL": "http://882ffbe562c5.ngrok.io/callback/", #already defined under urls,replace in production
         "AccountReference": phone_number,
         "TransactionDesc": "Testing stk push"
     }
