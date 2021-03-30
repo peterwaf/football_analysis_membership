@@ -2,7 +2,7 @@ asgiref==3.2.7
 astroid==2.4.0
 certifi==2020.4.5.1
 chardet==3.0.4
-Django==3.0.7
+Django==3.0.12
 django-crispy-forms==1.9.1
 django-js-asset==1.2.2
 django-relativedelta==1.1.1
